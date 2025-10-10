@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Campus Crush – Real people. Real campus. Real connections.</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+    body {
+      background-color: #fffaf6;
+      color: #3b2a24;
+      line-height: 1.6;
+    }
+    header {
+      text-align: center;
+      padding: 80px 20px 40px;
+      background-color: #ffe6e1;
+    }
+    header h1 {
+      font-size: 3rem;
+      color: #e25d5d;
+      font-weight: 800;
+    }
+    header p {
+      margin-top: 10px;
+      font-size: 1.2rem;
+    }
+    .btn {
+      display: inline-block;
+      background-color: #e25d5d;
+      color: white;
+      padding: 12px 28px;
+      margin-top: 20px;
+      border-radius: 30px;
+      text-decoration: none;
+      transition: 0.3s ease;
+    }
+    .btn:hover {
+      background-color: #c74949;
+    }
+    section {
+      padding: 80px 20px;
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    section h2 {
+      color: #e25d5d;
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+    .feature {
+      background: #fff;
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+    .feature h3 {
+      color: #e25d5d;
+      margin-bottom: 10px;
+    }
+    .mockup img {
+      width: 100%;
+      max-width: 400px;
+      margin-top: 30px;
+      border-radius: 20px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+    }
+    form {
+      background: #fff;
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+      max-width: 500px;
+      margin: 40px auto 0;
+    }
+    form input, form textarea {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #e5c1bc;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+    form button {
+      background-color: #e25d5d;
+      border: none;
+      color: white;
+      padding: 12px 28px;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: 0.3s;
+      font-size: 1rem;
+    }
+    form button:hover {
+      background-color: #c74949;
+    }
+    footer {
+      background: #ffe6e1;
+      padding: 40px 20px;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+    footer a {
+      color: #e25d5d;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Campus Crush</h1>
+    <p>Real people. Real campus. Real connections.</p>
+    <a href="#signup" class="btn">Join the Waitlist</a>
+  </header>
+
+  <section id="features">
+    <h2>Why Campus Crush?</h2>
+    <div class="features">
+      <div class="feature">
+        <h3>Verified .edu Logins</h3>
+        <p>Connect only with real students from your campus. No bots. No fakes.</p>
+      </div>
+      <div class="feature">
+        <h3>Crush Confessions</h3>
+        <p>Anonymous likes until they’re mutual—low pressure, high excitement.</p>
+      </div>
+      <div class="feature">
+        <h3>Campus Prompts</h3>
+        <p>Weekly fun questions and local trends to help you start real conversations.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="mockup">
+    <h2>See the App in Action</h2>
+    <img src="https://via.placeholder.com/400x800/ffe6e1/ffffff?text=App+Mockup" alt="Campus Crush App Preview">
+  </section>
+
+  <section id="signup">
+    <h2>Get Early Access</h2>
+    <p>Be the first to try Campus Crush when it launches at your school.</p>
+
+    <form id="contact-form">
+      <input type="text" id="name" placeholder="Your Name" required>
+      <input type="email" id="email" placeholder="Your .edu Email" required>
+      <textarea id="message" rows="3" placeholder="Why you want Campus Crush? (optional)"></textarea>
+      <button type="submit">Join the Waitlist</button>
+    </form>
+
+    <p id="status"></p>
+  </section>
+
+  <footer>
+    <p>© 2025 Campus Crush. Built with ❤️ in NYC.</p>
+    <p><a href="mailto:hello@campuscrush.app">Contact Us</a></p>
+  </footer>
+
+  <!-- EmailJS SDK -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <script type="text/javascript">
+    (function(){
+      emailjs.init("ulL6vwPV1VYplg_8l"); // ✅ your public key
+    })();
+
+    const form = document.getElementById('contact-form');
+    const status = document.getElementById('status');
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const message = document.getElementById('message').value;
+
+      emailjs.send("campuscrush_service", "template_campuscrush", {
+        from_name: name,
+        from_email: email,
+        message: message
+      })
+      .then(function() {
+        status.textContent = "✅ Thanks for joining! You’re on the list.";
+        form.reset();
+      }, function(error) {
+        status.textContent = "❌ Oops! Something went wrong. Try again.";
+        console.error('Error:', error);
+      });
+    });
+  </script>
+</body>
+</html>
+
