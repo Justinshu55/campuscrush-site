@@ -202,5 +202,31 @@
     });
   </script>
 </body>
+
+<form id="campusForm" style="display: flex; flex-direction: column; gap: 10px; max-width: 350px; margin: 20px auto;">
+  <input type="text" name="user_name" placeholder="Your Name" required />
+  <input type="email" name="user_email" placeholder="Your Email" required />
+  <textarea name="message" placeholder="Say hi or tell us your campus!" required></textarea>
+  <button type="submit">Join CampusCrush</button>
+</form>
+
+<script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+<script>
+  (function(){
+    emailjs.init("ulL6vwPV1VYplg_8l"); // your public key
+  })();
+
+  document.getElementById('campusForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    emailjs.sendForm('campuscrush_service', 'template_campuscrush', this)
+      .then(() => {
+        alert('✅ Thanks for joining CampusCrush!');
+        this.reset();
+      }, (error) => {
+        alert('❌ Failed to send: ' + JSON.stringify(error));
+      });
+  });
+</script>
+
 </html>
 
