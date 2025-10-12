@@ -2,325 +2,263 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title>CampusCrush — Real Students. Real Connections.</title>
-  <meta name="description" content="CampusCrush — connect with classmates, find study buddies, and meet people on your campus. Join the waitlist." />
-  <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+  <meta name="theme-color" content="#1C2D5A" />
+
   <style>
-    /* ---------- Palette (Navy + Soft Peach) ---------- */
     :root{
-      --navy: #1C2D5A;
-      --navy-2: #23366E;
-      --peach: #FFB7A2;
-      --peach-2: #FF9E8C;
-      --cream: #FBF8F6;
-      --card: #0f2348; /* darker card for subtle contrast */
-      --muted: #CBD3E8;
-      --white: #ffffff;
-      --shadow: 0 10px 30px rgba(28,45,90,0.12);
+      --navy:#1C2D5A;
+      --navy-2:#23366E;
+      --peach:#FFB7A2;
+      --peach-2:#FF9E8C;
+      --muted:#CBD3E8;
+      --white:#FFFFFF;
     }
 
+    /* Mobile-first reset */
     *{box-sizing:border-box}
-    html,body{height:100%;margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;}
+    html,body{margin:0;padding:0}
     body{
-      background: linear-gradient(180deg, var(--navy) 0%, #122043 100%);
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial;
+      background: linear-gradient(180deg,var(--navy) 0%, #122043 100%);
       color:var(--white);
       -webkit-font-smoothing:antialiased;
       -moz-osx-font-smoothing:grayscale;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      padding:36px 18px;
-      gap:28px;
     }
 
-    /* ---------- Container ---------- */
-    .site {
-      width:100%;
-      max-width:1100px;
+    /* Layout wrappers */
+    .wrap{max-width:1040px;margin:0 auto;padding:16px clamp(14px,4vw,24px) 88px;}
+    header{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 0}
+    .brand{display:flex;align-items:center;gap:10px}
+    .logo{
+      width:40px;height:40px;border-radius:10px;
+      background:var(--peach);display:grid;place-items:center;
+      box-shadow:0 6px 18px rgba(255,183,162,.12);
+      flex:0 0 40px;
+    }
+    .logo svg{width:20px;height:20px;fill:#fff}
+    .title{font-weight:700;font-size:18px;letter-spacing:.2px}
+
+    .nav-actions{display:flex;gap:10px}
+    .ghost{
+      display:none; /* hide on mobile, show on larger screens */
+      color:var(--muted);background:transparent;border:1px solid rgba(255,255,255,.08);
+      padding:8px 12px;border-radius:999px;font-weight:600
+    }
+    .cta{
+      background:linear-gradient(90deg,var(--peach),var(--peach-2));color:var(--navy);
+      border:none;border-radius:999px;padding:10px 16px;font-weight:800
     }
 
-    header {
-      display:flex;
-      align-items:center;
-      gap:18px;
-      justify-content:space-between;
-      padding:18px 24px;
-      background:transparent;
-    }
+    /* Hero */
+    .hero{margin-top:8px}
+    .h1{font-size:28px;line-height:1.15;margin:8px 0 10px}
+    .lead{color:rgba(255,255,255,.92);font-size:15.5px}
 
-    .brand {
-      display:flex;
-      gap:12px;
-      align-items:center;
+    /* Features (stack on mobile) */
+    .features{display:grid;grid-template-columns:1fr;gap:12px;margin:18px 0 8px}
+    .feature{
+      border:1px solid rgba(255,255,255,.06);
+      background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.02));
+      border-radius:12px;padding:14px
     }
+    .feature h3{margin:0 0 6px 0;color:var(--peach);font-size:15px}
+    .feature p{margin:0;color:#E5E9F5;font-size:14px}
 
-    .logo {
-      width:44px;height:44px;border-radius:10px;
-      background: linear-gradient(135deg,var(--peach),var(--peach-2));
-      display:flex;align-items:center;justify-content:center;
-      box-shadow: 0 6px 18px rgba(255,183,162,0.12);
-      flex-shrink:0;
+    /* Form card */
+    .card{
+      margin-top:18px;border-radius:14px;
+      background:linear-gradient(180deg,var(--navy-2),rgba(35,54,110,.9));
+      border:1px solid rgba(255,255,255,.06);
+      box-shadow:0 16px 40px rgba(0,0,0,.35);
+      padding:16px
     }
-    .logo svg{width:22px;height:22px; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.15));}
+    .card h3{margin:0 0 6px 0}
+    .card p.sub{margin:0 0 14px 0;color:var(--muted);font-size:13px}
 
-    .title {
-      font-weight:700;
-      font-size:20px;
-      letter-spacing:0.2px;
-      color:var(--white);
+    label{display:block;font-size:13px;margin:8px 0 6px;color:var(--muted);font-weight:600}
+    input,select,textarea{
+      width:100%;border-radius:10px;border:1px solid rgba(255,255,255,.08);
+      background:rgba(255,255,255,.04);color:#fff;font-size:16px; /* >=16px to avoid iOS zoom */
+      padding:12px 14px;outline:none
     }
+    input::placeholder,textarea::placeholder{color:rgba(255,255,255,.55)}
+    textarea{min-height:96px;resize:vertical}
 
-    nav {
-      display:flex;gap:12px;align-items:center;
-    }
-
-    .ghost {
-      color:var(--muted);
-      background:transparent;
-      border:1px solid rgba(255,255,255,0.06);
-      padding:8px 14px;border-radius:999px;
-      font-weight:600;
-    }
-
-    .cta {
+    .submit{
+      margin-top:8px;width:100%;border:none;border-radius:999px;
       background:linear-gradient(90deg,var(--peach),var(--peach-2));
-      color:var(--navy);
-      padding:10px 18px;border-radius:999px;border:none;font-weight:700;
-      cursor:pointer;box-shadow:var(--shadow);
+      color:var(--navy);font-weight:800;padding:12px;
+      box-shadow:0 10px 28px rgba(255,183,162,.15)
+    }
+    .submit:active{transform:translateY(1px)}
+
+    #status{text-align:center;margin-top:10px;font-weight:700;color:var(--peach)}
+
+    /* Sticky CTA (mobile) */
+    .sticky-cta{
+      position:fixed;left:0;right:0;bottom:0;
+      padding:10px clamp(12px,5vw,20px) calc(env(safe-area-inset-bottom) + 10px);
+      background:linear-gradient(180deg,rgba(13,25,54,.0),rgba(13,25,54,.85));
+      backdrop-filter:blur(6px);
+      display:flex;gap:10px;justify-content:center;align-items:center;
+      z-index:50;
+    }
+    .sticky-cta button{
+      width:100%;max-width:520px;border:none;border-radius:999px;
+      background:linear-gradient(90deg,var(--peach),var(--peach-2));
+      color:var(--navy);font-weight:900;padding:14px 18px
     }
 
-    /* ---------- Hero ---------- */
-    .hero {
-      display:grid;
-      grid-template-columns: 1fr 420px;
-      gap:36px;
-      align-items:center;
-      width:100%;
-      max-width:1100px;
-      margin: 12px auto;
+    /* Desktop+ tweaks */
+    @media (min-width:760px){
+      .wrap{padding:22px 24px 40px}
+      .ghost{display:inline-block}
+      .h1{font-size:40px}
+      .lead{font-size:16px;max-width:720px}
+      .hero-grid{display:grid;grid-template-columns:1.2fr .9fr;gap:26px;align-items:start}
+      .features{grid-template-columns:repeat(3,1fr);gap:16px}
+      .card{padding:20px}
+      .sticky-cta{display:none}
     }
 
-    .hero-left {
-      padding: 20px 10px;
+    /* Reduce motion preference */
+    @media (prefers-reduced-motion: reduce){
+      *{scroll-behavior:auto}
     }
-    .hero h1 {
-      font-size:36px;
-      line-height:1.05;
-      margin:0 0 12px 0;
-      color:var(--white);
-    }
-    .hero p.lead {
-      color:rgba(255,255,255,0.9);
-      margin:0 0 18px 0;
-      font-size:16px;
-      max-width:640px;
-    }
-
-    /* ---------- Card (form) ---------- */
-    .card {
-      background: linear-gradient(180deg,var(--navy-2), rgba(35,54,110,0.9));
-      border-radius:14px;
-      padding:20px;
-      box-shadow: 0 18px 40px rgba(0,0,0,0.35);
-      width:100%;
-      color:var(--white);
-    }
-
-    label{display:block;font-size:13px;margin-bottom:6px;color:var(--muted);font-weight:600}
-    input, select, textarea {
-      width:100%;
-      padding:12px 14px;
-      border-radius:10px;
-      border:1px solid rgba(255,255,255,0.06);
-      background: rgba(255,255,255,0.03);
-      color:var(--white);
-      font-size:14px;
-      margin-bottom:12px;
-      outline:none;
-    }
-    input::placeholder, textarea::placeholder { color: rgba(255,255,255,0.55); }
-    textarea { min-height:90px; resize:vertical; }
-
-    .submit {
-      background: linear-gradient(90deg,var(--peach),var(--peach-2));
-      border:none;color:var(--navy);
-      font-weight:700;padding:12px;border-radius:999px;cursor:pointer;width:100%;
-      box-shadow:0 10px 30px rgba(255,183,162,0.12);
-      transition: transform .14s ease, box-shadow .14s;
-    }
-    .submit:hover { transform: translateY(-3px); box-shadow:0 18px 40px rgba(255,158,140,0.18); }
-
-    #status { text-align:center; margin-top:12px; font-weight:600; color:var(--peach); }
-
-    /* ---------- Features block ---------- */
-    .features {
-      display:grid;
-      grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
-      gap:18px;
-      margin-top:8px;
-    }
-    .feature {
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      padding:18px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);
-      color:var(--muted);
-    }
-    .feature h3{ color:var(--peach); margin:0 0 8px 0; font-size:15px }
-
-    /* ---------- Footer ---------- */
-    footer {
-      width:100%;
-      max-width:1100px;
-      text-align:center;
-      color:var(--muted);
-      padding:28px 20px;
-      font-size:14px;
-    }
-
-    /* ---------- Responsive ---------- */
-    @media (max-width:980px){
-      .hero{ grid-template-columns: 1fr; gap:22px; padding:0 10px; }
-      header{ padding:14px 10px; }
-    }
-    @media (max-width:460px){
-      .hero h1{ font-size:26px; }
-      .title{ font-size:18px }
-    }
-
-    /* subtle focus state */
-    input:focus, select:focus, textarea:focus{ box-shadow: 0 6px 18px rgba(35,54,110,0.25); border-color: rgba(255,183,162,0.18); }
   </style>
 </head>
 <body>
-  <div class="site">
+  <div class="wrap">
     <header>
       <div class="brand">
         <div class="logo" aria-hidden="true">
-          <!-- simple heart inside (SVG) -->
-          <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path d="M12 21s-7.33-4.35-9.5-6.17C-0.02 11.03 3 5 7.5 6.5 9.07 7.07 10 9 12 11c2-2 2.93-3.93 4.5-4.5C21 5 24 11.03 21.5 14.83 19.33 16.65 12 21 12 21z"/>
+          <!-- your chosen heart -->
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 21s-7.33-4.35-9.5-6.17C-0.02 11.03 3 5 7.5 6.5 9.07 7.07 10 9 12 11c2-2 2.93-3.93 4.5-4.5C21 5 24 11.03 21.5 14.83 19.33 16.65 12 21 12 21z" fill="#fff"/>
           </svg>
         </div>
-        <div>
-          <div class="title">CampusCrush</div>
-        </div>
+        <div class="title">CampusCrush</div>
       </div>
-
-      <nav>
+      <div class="nav-actions">
         <button class="ghost" onclick="document.getElementById('features').scrollIntoView({behavior:'smooth'})">Features</button>
         <button class="cta" onclick="document.getElementById('signup').scrollIntoView({behavior:'smooth'})">Join Waitlist</button>
-      </nav>
+      </div>
     </header>
 
-    <main class="hero" role="main" aria-labelledby="hero-title">
-      <div class="hero-left">
-        <h1 id="hero-title">Find study buddies, project partners, and maybe something more.</h1>
-        <p class="lead">CampusCrush connects verified college students in your state — match by classes, schedules, and shared interests. Start small: join the waitlist and help shape the app.</p>
+    <!-- Hero -->
+    <section class="hero">
+      <h1 class="h1">Find study buddies, project partners, and maybe something more.</h1>
+      <p class="lead">Match with verified students on your campus by classes, schedules, and shared interests. Join the waitlist to help shape the first release.</p>
+    </section>
 
-        <section aria-labelledby="features-title" id="features">
-          <h2 id="features-title" style="color:var(--white);margin-bottom:14px">Upcoming features</h2>
-          <div class="features" style="margin-top:0;">
-            <div class="feature">
-              <h3>Swipe & Match</h3>
-              <p>Familiar, fast matching — optional and privacy-focused, built for campus-first connections.</p>
-            </div>
-            <div class="feature">
-              <h3>Schedule Sync</h3>
-              <p>Share class blocks to surface classmates and study partners who are actually free at the same time.</p>
-            </div>
-            <div class="feature">
-              <h3>Verified Profiles</h3>
-              <p>Sign-ups require a .edu email so classrooms stay safe, relevant, and real.</p>
-            </div>
-          </div>
-        </section>
+    <!-- Two-column on desktop, stacked on mobile -->
+    <section class="hero-grid" id="features">
+      <div>
+        <div class="features">
+          <article class="feature">
+            <h3>Swipe & Match</h3>
+            <p>Familiar, fast matching — optional and privacy-first, designed for campus connections.</p>
+          </article>
+          <article class="feature">
+            <h3>Schedule Sync</h3>
+            <p>Share class blocks to discover classmates free when you are — study sessions that actually happen.</p>
+          </article>
+          <article class="feature">
+            <h3>Verified Profiles</h3>
+            <p>.edu email required. Keep it real, safe, and relevant to your school.</p>
+          </article>
+        </div>
       </div>
 
-      <aside>
-        <div class="card" role="form" aria-labelledby="signup">
-          <h3 style="margin:0 0 12px 0;color:var(--white)">Join the waitlist</h3>
-          <p style="margin:0 0 12px 0;color:var(--muted);font-size:13px">Get early access and feature invites — we respect privacy.</p>
+      <!-- Waitlist Card -->
+      <aside class="card" id="signup" role="form" aria-labelledby="wl">
+        <h3 id="wl">Join the waitlist</h3>
+        <p class="sub">Early access + feature invites (we respect your privacy).</p>
 
-          <form id="contact-form" aria-label="CampusCrush waitlist form">
-            <label for="user_name">Name</label>
-            <input id="user_name" name="user_name" type="text" placeholder="Your full name" required>
+        <form id="contact-form" aria-label="CampusCrush waitlist">
+          <label for="user_name">Name</label>
+          <input id="user_name" name="user_name" type="text" placeholder="Your full name" autocomplete="name" required />
 
-            <label for="user_email">.edu Email</label>
-            <input id="user_email" name="user_email" type="email" placeholder="you@college.edu" required
-              pattern="^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.edu$"
-              title="Please use your .edu email address">
+          <label for="user_email">.edu Email</label>
+          <input id="user_email" name="user_email" type="email" placeholder="you@college.edu"
+                 inputmode="email" autocomplete="email"
+                 pattern="^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.edu$"
+                 title="Please use your .edu email address" required />
 
-            <label for="college">College</label>
-            <select id="college" name="college" required>
-              <option value="">Select your college</option>
-              <option>Columbia University</option>
-              <option>Cornell University</option>
-              <option>New York University</option>
-              <option>University at Buffalo</option>
-              <option>SUNY Stony Brook</option>
-              <option>Syracuse University</option>
-              <option>Binghamton University</option>
-              <option>Parsons School of Design</option>
-              <option>Pratt Institute</option>
-              <option>Fashion Institute of Technology (FIT)</option>
-              <option>Other college</option>
-            </select>
+          <label for="college">College</label>
+          <select id="college" name="college" required>
+            <option value="">Select your college</option>
+            <option>Columbia University</option>
+            <option>Cornell University</option>
+            <option>New York University</option>
+            <option>University at Buffalo</option>
+            <option>SUNY Stony Brook</option>
+            <option>Syracuse University</option>
+            <option>Binghamton University</option>
+            <option>Parsons School of Design</option>
+            <option>Pratt Institute</option>
+            <option>Fashion Institute of Technology (FIT)</option>
+            <option>Other college</option>
+          </select>
 
-            <label for="message">Message (optional)</label>
-            <textarea id="message" name="message" placeholder="Tell us why you'd like to join (optional)"></textarea>
+          <label for="message">Message (optional)</label>
+          <textarea id="message" name="message" placeholder="Tell us why you want CampusCrush (optional)"></textarea>
 
-            <button class="submit" type="submit" aria-live="polite">Join the Waitlist</button>
-            <div id="status" role="status" aria-atomic="true"></div>
-          </form>
-        </div>
+          <button class="submit" type="submit">Join the Waitlist</button>
+          <div id="status" role="status" aria-live="polite"></div>
+        </form>
       </aside>
-    </main>
+    </section>
+  </div>
 
-    <footer>
-      <p>© 2025 CampusCrush — All rights reserved · <a href="mailto:hello@campuscrush.app" style="color:var(--peach)">Contact</a></p>
-    </footer>
+  <!-- Sticky mobile CTA -->
+  <div class="sticky-cta" id="stickyBar">
+    <button onclick="document.getElementById('signup').scrollIntoView({behavior:'smooth'})">Join the Waitlist</button>
   </div>
 
   <!-- EmailJS -->
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <script>
-    // init EmailJS
-    emailjs.init("ulL6vwPV1VYplg_8l"); // your public key
+    // Initialize EmailJS
+    emailjs.init("ulL6vwPV1VYplg_8l");
 
     const form = document.getElementById('contact-form');
     const statusEl = document.getElementById('status');
 
+    // Hide sticky CTA when form is in view (mobile UX)
+    const sticky = document.getElementById('stickyBar');
+    const obs = new IntersectionObserver(([entry])=>{
+      // if signup card is on screen, hide sticky; otherwise show
+      sticky.style.display = entry.isIntersecting ? 'none' : 'flex';
+    }, {rootMargin: '0px 0px -60% 0px', threshold: 0.01});
+    obs.observe(document.getElementById('signup'));
+
     form.addEventListener('submit', function(e){
       e.preventDefault();
-
-      // ui reset
       statusEl.textContent = '';
-      statusEl.style.color = '';
 
-      const email = document.getElementById('user_email').value.trim();
-      if (!email.toLowerCase().endsWith('.edu')) {
+      const email = document.getElementById('user_email').value.trim().toLowerCase();
+      if(!email.endsWith('.edu')){
         statusEl.textContent = "Please use a .edu email address.";
         statusEl.style.color = 'var(--peach)';
         return;
       }
 
-      // show sending
       statusEl.textContent = "Sending…";
       statusEl.style.color = 'var(--muted)';
 
-      // sendForm will map name attributes to template variables in EmailJS
-      emailjs.sendForm('campuscrush_service', 'template_campuscrush', this)
-        .then(() => {
+      emailjs.sendForm('campuscrush_service','template_campuscrush', this)
+        .then(()=>{
           statusEl.textContent = "✅ You’re on the waitlist — thanks!";
-          statusEl.style.color = '#8FE3C3'; // gentle success tone
-          // small gentle animation to indicate success
-          setTimeout(() => {
-            statusEl.textContent = '';
-          }, 5000);
-          form.reset();
-        }, (err) => {
+          statusEl.style.color = '#8FE3C3';
+          this.reset();
+          setTimeout(()=>statusEl.textContent='', 5000);
+        })
+        .catch((err)=>{
           console.error('EmailJS error:', err);
-          statusEl.textContent = "❌ Something went wrong. Try again later.";
+          statusEl.textContent = "❌ Something went wrong. Try again.";
           statusEl.style.color = 'var(--peach)';
         });
     });
