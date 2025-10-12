@@ -189,7 +189,70 @@
 
     /* subtle focus state */
     input:focus, select:focus, textarea:focus{ box-shadow: 0 6px 18px rgba(35,54,110,0.25); border-color: rgba(255,183,162,0.18); }
+  
+    /* --- Mobile polish (keeps your old layout) --- */
+@media (max-width: 720px) {
+  /* spacing + readable text */
+  body { padding: 0 14px 60px; }
+  header { padding: 12px 8px; }
+  .hero { margin-top: 8px; }
+  .hero h1, .hero-left h1 { font-size: 28px; line-height: 1.2; }
+  .lead { font-size: 15.5px; color: rgba(255,255,255,0.92); }
+
+  /* features stack cleanly */
+  .features { 
+    display: grid; 
+    grid-template-columns: 1fr; 
+    gap: 12px; 
+    margin-top: 12px;
+  }
+  .feature { 
+    padding: 14px; 
+    border-radius: 12px; 
+    border: 1px solid rgba(255,255,255,0.06);
+    background: linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.02));
+  }
+  .feature h3 { font-size: 15px; margin-bottom: 6px; }
+
+  /* form card: tighter, easier taps */
+  .card { 
+    padding: 16px; 
+    border-radius: 12px; 
+    box-shadow: 0 16px 36px rgba(0,0,0,0.32);
+    margin-top: 16px;
+  }
+  label { font-size: 13px; margin: 8px 0 6px; }
+  input, select, textarea {
+    width: 100%;
+    font-size: 16px;            /* prevents iOS zoom */
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.04);
+    color: #fff;
+  }
+  textarea { min-height: 96px; }
+
+  /* buttons: bigger targets */
+  .submit, .cta, button[type="submit"] {
+    width: 100%;
+    padding: 12px 16px;
+    font-size: 16px;
+    border-radius: 999px;
+  }
+
+  /* optional: hide secondary nav button on small screens */
+  nav .ghost { display: none; }
+}
+
+/* Slightly larger phones */
+@media (max-width: 400px) {
+  .title { font-size: 18px; }
+  .hero h1, .hero-left h1 { font-size: 26px; }
+}
+
   </style>
+  
 </head>
 <body>
   <div class="site">
