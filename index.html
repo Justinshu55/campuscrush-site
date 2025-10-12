@@ -3,139 +3,246 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CampusCrush</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <title>Campus Crush – Real people. Real campus. Real connections.</title>
+
   <style>
-    body {
-      font-family: 'Inter', sans-serif;
-      background-color: #fff;
-      color: #222;
+    * {
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background-color: #fffaf7;
+      color: #3b2a24;
+      line-height: 1.6;
+      overflow-x: hidden;
     }
 
     header {
       text-align: center;
-      padding: 80px 20px 40px;
+      padding: 100px 20px 60px;
+      background-color: #ffe4df;
+      color: #3b2a24;
     }
 
-    h1 {
-      font-size: 3rem;
-      color: #FF6B6B;
-      margin-bottom: 0.5rem;
+    header h1 {
+      font-size: 3.5rem;
+      color: #e25d5d;
+      font-weight: 800;
     }
 
-    p.tagline {
+    header p {
+      margin-top: 12px;
       font-size: 1.2rem;
-      color: #555;
-      margin-bottom: 2rem;
+      color: #5c4a45;
     }
 
-    .cta {
-      background-color: #FF6B6B;
+    .btn {
+      display: inline-block;
+      background-color: #e25d5d;
       color: white;
-      border: none;
+      padding: 14px 36px;
+      margin-top: 30px;
       border-radius: 30px;
-      padding: 15px 35px;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: 0.3s;
+      text-decoration: none;
+      transition: 0.3s ease;
+      font-weight: 600;
     }
 
-    .cta:hover {
-      background-color: #ff4c4c;
+    .btn:hover {
+      background-color: #c74a4a;
     }
 
     section {
-      text-align: center;
-      padding: 60px 20px;
-      max-width: 900px;
+      padding: 80px 20px;
+      max-width: 950px;
       margin: 0 auto;
+      text-align: center;
+    }
+
+    section h2 {
+      color: #e25d5d;
+      font-size: 2.2rem;
+      margin-bottom: 20px;
+    }
+
+    section p {
+      font-size: 1.1rem;
+      color: #4d3c38;
+      max-width: 700px;
+      margin: 0 auto 40px;
     }
 
     .features {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 30px;
-      margin-top: 40px;
+      gap: 25px;
+      margin-top: 20px;
     }
 
     .feature {
-      background: #f9f9f9;
+      background: #fff;
       border-radius: 16px;
-      padding: 25px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-      transition: transform 0.2s;
-    }
-
-    .feature:hover {
-      transform: translateY(-5px);
+      padding: 30px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
     }
 
     .feature h3 {
-      color: #FF6B6B;
+      color: #e25d5d;
       margin-bottom: 10px;
     }
 
-    footer {
-      text-align: center;
+    .mockup img {
+      width: 100%;
+      max-width: 420px;
+      margin-top: 30px;
+      border-radius: 20px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+    }
+
+    form {
+      background: #fff;
+      border-radius: 20px;
       padding: 40px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+      max-width: 520px;
+      margin: 40px auto 0;
+      text-align: left;
+    }
+
+    form label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 600;
+      color: #3b2a24;
+    }
+
+    form input, form textarea, form select {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border: 1px solid #e5c1bc;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+
+    form button {
+      background-color: #e25d5d;
+      border: none;
+      color: white;
+      padding: 12px 28px;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: 0.3s;
+      font-size: 1rem;
+      width: 100%;
+    }
+
+    form button:hover {
+      background-color: #c74949;
+    }
+
+    #status {
+      text-align: center;
+      margin-top: 15px;
+      font-weight: 600;
+    }
+
+    footer {
+      background: #ffe4df;
+      padding: 40px 20px;
+      text-align: center;
       font-size: 0.9rem;
-      color: #777;
+      color: #4b3a36;
+    }
+
+    footer a {
+      color: #e25d5d;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
+
 <body>
   <header>
-    <h1>CampusCrush</h1>
-    <p class="tagline">Find study buddies, project partners, and maybe something more.</p>
-    <button class="cta" onclick="document.getElementById('waitlist').scrollIntoView({behavior: 'smooth'})">Join the Waitlist</button>
+    <h1>Campus Crush</h1>
+    <p>Real people. Real campus. Real connections.</p>
+    <a href="#signup" class="btn">Join the Waitlist</a>
   </header>
 
-  <section>
-    <h2>Real connections for real students</h2>
-    <p>CampusCrush helps college students meet new people, collaborate, and build meaningful connections — all verified with .edu emails for safety and authenticity.</p>
+  <section id="intro">
+    <h2>Meet Students, Not Strangers</h2>
+    <p>Campus Crush helps college students connect through real profiles, verified .edu emails, and shared schedules. 
+       Whether it’s a study partner or a campus crush, you’ll meet real people from your community.</p>
+  </section>
 
+  <section id="features">
+    <h2>Upcoming Features</h2>
     <div class="features">
       <div class="feature">
-        <h3>🎓 Verified Campus Access</h3>
-        <p>Only students with .edu emails can join. Keep it real, keep it on campus.</p>
-      </div>
-      <div class="feature">
-        <h3>🤝 Smart Matching</h3>
-        <p>Find people who share your classes, study habits, or interests.</p>
+        <h3>💞 Swipe & Match</h3>
+        <p>Discover people nearby with shared campus life interests — swipe right if you vibe!</p>
       </div>
       <div class="feature">
         <h3>📅 Schedule Sync</h3>
-        <p>Share your availability and connect with classmates when it actually fits your time.</p>
+        <p>Optionally connect your class schedule to see who’s in the same lecture, studio, or club.</p>
       </div>
       <div class="feature">
-        <h3>💞 Swipe or Study</h3>
-        <p>Whether you’re looking for a crush or a collab, CampusCrush makes it simple.</p>
+        <h3>🔒 Verified Profiles</h3>
+        <p>All users sign up with a verified <strong>.edu</strong> email — ensuring authenticity and safety.</p>
       </div>
     </div>
   </section>
 
-  <section id="waitlist">
-    <h2>Join the Waitlist</h2>
-    <p>Be one of the first to get access when we launch.</p>
+  <section id="signup">
+    <h2>Get Early Access</h2>
+    <p>Be the first to try Campus Crush when it launches at your college.</p>
+
     <form id="contact-form">
-      <input type="email" id="user_email" name="user_email" placeholder="Enter your .edu email" required style="padding:12px; width:300px; border:1px solid #ccc; border-radius:8px;">
-      <button class="cta" type="submit">Join Now</button>
-      <p id="status" style="margin-top:15px; color:#555;"></p>
+      <label for="name">Your Name</label>
+      <input type="text" id="name" placeholder="John Doe" required>
+
+      <label for="email">Your .edu Email</label>
+      <input type="email" id="email" placeholder="example@college.edu" required>
+
+      <label for="college">Your College</label>
+      <select id="college" required>
+        <option value="">Select your college</option>
+        <option>Parsons School of Design</option>
+        <option>New York University</option>
+        <option>Columbia University</option>
+        <option>Cornell University</option>
+        <option>Pratt Institute</option>
+        <option>Fashion Institute of Technology</option>
+        <option>Fordham University</option>
+      </select>
+
+      <label for="message">Why do you want Campus Crush?</label>
+      <textarea id="message" rows="3" placeholder="Optional"></textarea>
+
+      <button type="submit">Join the Waitlist</button>
     </form>
+
+    <p id="status"></p>
   </section>
 
   <footer>
-    © 2025 CampusCrush. All rights reserved.
+    <p>© 2025 Campus Crush. All rights reserved.</p>
+    <p><a href="mailto:hello@campuscrush.app">Contact Us</a></p>
   </footer>
 
+  <!-- EmailJS SDK -->
   <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
   <script>
-    (function() {
-      emailjs.init("ulL6vwPV1VYplg_8l");
+    (function(){
+      emailjs.init("ulL6vwPV1VYplg_8l"); // your public key
     })();
 
     const form = document.getElementById('contact-form');
@@ -143,23 +250,30 @@
 
     form.addEventListener('submit', function(event) {
       event.preventDefault();
+      const email = document.getElementById('email').value;
 
-      const email = document.getElementById('user_email').value;
+      // Restrict to .edu emails
       if (!email.endsWith('.edu')) {
-        status.textContent = "Please use a valid .edu email.";
-        status.style.color = "red";
+        status.textContent = "❌ Please use a valid .edu email to join.";
+        status.style.color = "#e25d5d";
         return;
       }
 
-      status.textContent = "Sending...";
-      emailjs.sendForm('campuscrush_service', 'template_campuscrush', this)
-        .then(() => {
-          status.textContent = "✅ You’re on the list! We’ll be in touch soon.";
-          form.reset();
-        }, () => {
-          status.textContent = "❌ Oops! Something went wrong. Try again.";
-          status.style.color = "red";
-        });
+      emailjs.send("campuscrush_service", "template_campuscrush", {
+        from_name: document.getElementById('name').value,
+        from_email: email,
+        college: document.getElementById('college').value,
+        message: document.getElementById('message').value
+      })
+      .then(function() {
+        status.textContent = "✅ Thanks for joining! You’re officially on the list.";
+        status.style.color = "green";
+        form.reset();
+      }, function(error) {
+        status.textContent = "❌ Oops! Something went wrong. Try again.";
+        status.style.color = "#e25d5d";
+        console.error(error);
+      });
     });
   </script>
 </body>
