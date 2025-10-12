@@ -145,7 +145,9 @@
 
     <form id="campusForm">
       <input type="text" name="user_name" placeholder="Your Name" required />
-      <input type="email" name="user_email" placeholder="Your .edu Email" required />
+      <input type="email" name="user_email" placeholder="Your .edu Email" required 
+             pattern="^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.edu$"
+             title="Please use your .edu email address" />
       <select name="college" required>
         <option value="">Select your college</option>
         <option value="NYU">New York University</option>
@@ -185,10 +187,18 @@
 
     form.addEventListener('submit', function(event) {
       event.preventDefault();
+
+      const emailInput = form.querySelector('input[name="user_email"]').value.trim();
+      if (!emailInput.endsWith(".edu")) {
+        alert("🚫 Please use your .edu email address to join Campus Crush.");
+        return;
+      }
+
       emailjs.sendForm('campuscrush_service', 'template_campuscrush', this)
         .then(() => {
           popup.style.display = "flex";
           form.reset();
+          setTimeout(() => popup.style.display = "none", 3000); // auto-close after 3s
         }, (error) => {
           alert('❌ Something went wrong. Try again.');
           console.error('Error:', error);
