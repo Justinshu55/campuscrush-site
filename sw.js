@@ -9,6 +9,7 @@ const ASSETS = [
   '/icons/maskable-512.png'
 ];
 
+
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(cache => cache.addAll(ASSETS)));
   self.skipWaiting();
