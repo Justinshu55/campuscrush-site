@@ -1,34 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CampusCrush NYC 💌</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
     body {
       font-family: 'Inter', sans-serif;
-      background-color: #f8f9fa;
-      color: #222;
       margin: 0;
-      padding: 0;
+      height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      height: 100vh;
+      background: linear-gradient(160deg, #fde5e5 0%, #fff9f3 100%);
+      color: #222;
+      overflow: hidden;
     }
 
     .container {
       background: white;
-      border-radius: 20px;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
-      padding: 40px;
+      border-radius: 25px;
+      box-shadow: 0 10px 30px rgba(255, 170, 170, 0.3);
+      padding: 45px;
       width: 100%;
-      max-width: 420px;
+      max-width: 430px;
       text-align: center;
+      animation: fadeIn 0.8s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     h1 {
-      font-size: 1.8em;
+      font-size: 2em;
+      color: #e94e77;
       margin-bottom: 10px;
     }
 
@@ -44,42 +53,78 @@
       border-radius: 8px;
       border: 1px solid #ccc;
       font-size: 1em;
-      box-sizing: border-box;
+      transition: 0.2s;
     }
 
     input:focus, select:focus, textarea:focus {
-      border-color: #007bff;
+      border-color: #e94e77;
+      box-shadow: 0 0 0 3px rgba(233, 78, 119, 0.2);
       outline: none;
     }
 
     button {
-      background-color: #007bff;
+      background-color: #e94e77;
       color: white;
       border: none;
-      font-weight: bold;
+      font-weight: 600;
       cursor: pointer;
       transition: 0.3s;
     }
 
     button:hover {
-      background-color: #0056b3;
+      background-color: #d73b68;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 14px rgba(233, 78, 119, 0.3);
     }
 
     #status {
       margin-top: 10px;
-      font-size: 0.9em;
+      font-size: 0.95em;
+      height: 22px;
     }
 
-    .success {
-      color: green;
+    .success { color: green; }
+    .error { color: red; }
+
+    /* ✅ Popup modal */
+    #popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.8);
+      background: white;
+      padding: 35px 45px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s ease;
     }
 
-    .error {
-      color: red;
+    #popup.active {
+      opacity: 1;
+      pointer-events: all;
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    #popup h2 {
+      margin: 0 0 10px;
+      color: #e94e77;
+    }
+
+    canvas#confetti {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
     }
   </style>
 </head>
 <body>
+  <canvas id="confetti"></canvas>
 
   <div class="container">
     <h1>💘 CampusCrush NYC</h1>
@@ -87,17 +132,7 @@
 
     <form id="contact-form">
       <input type="text" id="name" name="name" placeholder="Your full name" required>
-
-      <input
-        type="email"
-        id="email"
-        name="email"
-        placeholder="Your .edu email"
-        pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.edu$"
-        title="Please use your .edu college email address"
-        required
-      >
-
+      <input type="email" id="email" name="email" placeholder="Your .edu email" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.edu$" title="Please use your .edu college email" required>
       <select id="college" name="college" required>
         <option value="" disabled selected>Select your college</option>
         <option>Parsons School of Design</option>
@@ -109,47 +144,90 @@
         <option>Baruch College</option>
         <option>Other NYC College</option>
       </select>
-
       <textarea id="message" name="message" placeholder="Tell us what you're hoping to find 💫" rows="3" required></textarea>
-
       <button type="submit">Join Waitlist</button>
       <div id="status"></div>
     </form>
   </div>
 
-  <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+  <div id="popup">
+    <h2>🎉 You're on the list!</h2>
+    <p>We'll notify you when CampusCrush NYC launches on your campus 💌</p>
+  </div>
+
+  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
   <script>
     (function() {
-      emailjs.init("ulL6vwPV1VYplg_8l"); // ✅ Your Public Key
+      emailjs.init("ulL6vwPV1VYplg_8l");
     })();
 
-    document.getElementById('contact-form').addEventListener('submit', function(event) {
-      event.preventDefault();
+    const popup = document.getElementById("popup");
+    const confettiCanvas = document.getElementById("confetti");
+    const statusEl = document.getElementById("status");
 
-      const email = document.getElementById('email').value;
-      const status = document.getElementById('status');
+    // Simple confetti effect
+    const ctx = confettiCanvas.getContext("2d");
+    let confetti = [];
+    const colors = ["#ff9aa2", "#ffb7b2", "#ffd3b6", "#ffffb5", "#c7ceea"];
 
-      if (!email.endsWith('.edu')) {
-        status.textContent = "❌ Please use your .edu college email address.";
-        status.className = "error";
+    function createConfetti() {
+      for (let i = 0; i < 100; i++) {
+        confetti.push({
+          x: Math.random() * window.innerWidth,
+          y: Math.random() * window.innerHeight - window.innerHeight,
+          r: Math.random() * 6 + 2,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          speed: Math.random() * 3 + 2,
+        });
+      }
+    }
+
+    function drawConfetti() {
+      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+      confetti.forEach((c) => {
+        ctx.beginPath();
+        ctx.arc(c.x, c.y, c.r, 0, Math.PI * 2);
+        ctx.fillStyle = c.color;
+        ctx.fill();
+        c.y += c.speed;
+        if (c.y > window.innerHeight) c.y = -10;
+      });
+    }
+
+    function animateConfetti() {
+      drawConfetti();
+      requestAnimationFrame(animateConfetti);
+    }
+
+    createConfetti();
+    animateConfetti();
+
+    document.getElementById("contact-form").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const email = document.getElementById("email").value;
+      if (!email.endsWith(".edu")) {
+        statusEl.textContent = "❌ Please use your .edu college email address.";
+        statusEl.className = "error";
         return;
       }
 
-      status.textContent = "⏳ Sending...";
-      status.className = "";
+      statusEl.textContent = "⏳ Sending...";
+      statusEl.className = "";
 
-      emailjs.sendForm('campuscrush_service', 'template_campuscrush', this)
+      emailjs.sendForm("campuscrush_service", "template_campuscrush", this)
         .then(() => {
-          status.textContent = "✅ Success! You’ve joined the waitlist.";
-          status.className = "success";
           this.reset();
-        }, (error) => {
-          console.error("EmailJS error:", error);
-          status.textContent = "❌ Oops! Something went wrong. Try again.";
-          status.className = "error";
+          statusEl.textContent = "";
+          popup.classList.add("active");
+
+          setTimeout(() => popup.classList.remove("active"), 4000);
+        })
+        .catch(() => {
+          statusEl.textContent = "❌ Something went wrong. Try again.";
+          statusEl.className = "error";
         });
     });
   </script>
-
 </body>
 </html>
