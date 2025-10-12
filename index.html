@@ -3,260 +3,162 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CampusCrush 💘 – Real Students. Real Connections.</title>
+  <title>CampusCrush</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
-
     body {
       font-family: 'Inter', sans-serif;
-      margin: 0;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(160deg, #fde5e5 0%, #fff9f3 100%);
+      background-color: #fff;
       color: #222;
-      overflow-x: hidden;
+      margin: 0;
+      padding: 0;
     }
 
     header {
       text-align: center;
-      margin-bottom: 30px;
-      animation: fadeIn 1s ease;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    header img {
-      width: 60px;
-      margin-bottom: 10px;
+      padding: 80px 20px 40px;
     }
 
     h1 {
-      font-size: 2.4em;
-      color: #e94e77;
-      margin: 0;
-      font-weight: 700;
+      font-size: 3rem;
+      color: #FF6B6B;
+      margin-bottom: 0.5rem;
     }
 
-    p.subtitle {
+    p.tagline {
+      font-size: 1.2rem;
       color: #555;
-      font-size: 1.1em;
-      margin-top: 8px;
+      margin-bottom: 2rem;
     }
 
-    .container {
-      background: white;
-      border-radius: 25px;
-      box-shadow: 0 10px 30px rgba(255, 170, 170, 0.3);
-      padding: 45px;
-      width: 100%;
-      max-width: 430px;
-      text-align: center;
-      animation: fadeIn 0.8s ease-in;
-    }
-
-    input, select, textarea, button {
-      width: 100%;
-      padding: 12px;
-      margin-bottom: 15px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      font-size: 1em;
-      transition: 0.2s;
-    }
-
-    input:focus, select:focus, textarea:focus {
-      border-color: #e94e77;
-      box-shadow: 0 0 0 3px rgba(233, 78, 119, 0.2);
-      outline: none;
-    }
-
-    button {
-      background-color: #e94e77;
+    .cta {
+      background-color: #FF6B6B;
       color: white;
       border: none;
-      font-weight: 600;
+      border-radius: 30px;
+      padding: 15px 35px;
+      font-size: 1rem;
       cursor: pointer;
       transition: 0.3s;
     }
 
-    button:hover {
-      background-color: #d73b68;
-      transform: translateY(-2px);
-      box-shadow: 0 6px 14px rgba(233, 78, 119, 0.3);
+    .cta:hover {
+      background-color: #ff4c4c;
     }
 
-    #status {
-      margin-top: 10px;
-      font-size: 0.95em;
-      height: 22px;
-    }
-
-    .success { color: green; }
-    .error { color: red; }
-
-    #popup {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) scale(0.8);
-      background: white;
-      padding: 35px 45px;
-      border-radius: 20px;
+    section {
       text-align: center;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-      opacity: 0;
-      pointer-events: none;
-      transition: all 0.3s ease;
-      z-index: 100;
+      padding: 60px 20px;
+      max-width: 900px;
+      margin: 0 auto;
     }
 
-    #popup.active {
-      opacity: 1;
-      pointer-events: all;
-      transform: translate(-50%, -50%) scale(1);
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
     }
 
-    #popup h2 {
-      margin: 0 0 10px;
-      color: #e94e77;
+    .feature {
+      background: #f9f9f9;
+      border-radius: 16px;
+      padding: 25px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      transition: transform 0.2s;
     }
 
-    canvas#confetti {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
+    .feature:hover {
+      transform: translateY(-5px);
+    }
+
+    .feature h3 {
+      color: #FF6B6B;
+      margin-bottom: 10px;
     }
 
     footer {
       text-align: center;
-      margin-top: 40px;
-      font-size: 0.9em;
+      padding: 40px;
+      font-size: 0.9rem;
       color: #777;
     }
   </style>
 </head>
 <body>
-  <canvas id="confetti"></canvas>
-
   <header>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Heart_corazon.svg/768px-Heart_corazon.svg.png" alt="Heart logo" />
     <h1>CampusCrush</h1>
-    <p class="subtitle">Real Students. Real Connections.</p>
+    <p class="tagline">Find study buddies, project partners, and maybe something more.</p>
+    <button class="cta" onclick="document.getElementById('waitlist').scrollIntoView({behavior: 'smooth'})">Join the Waitlist</button>
   </header>
 
-  <div class="container">
-    <form id="contact-form">
-      <input type="text" id="name" name="name" placeholder="Your full name" required>
-      <input type="email" id="email" name="email" placeholder="Your .edu email" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.edu$" title="Please use your .edu college email" required>
-      <select id="college" name="college" required>
-        <option value="" disabled selected>Select your college</option>
-        <option>Columbia University</option>
-        <option>Cornell University</option>
-        <option>New York University (NYU)</option>
-        <option>University at Buffalo</option>
-        <option>Stony Brook University</option>
-        <option>Syracuse University</option>
-        <option>Binghamton University</option>
-        <option>FIT</option>
-        <option>Rochester Institute of Technology</option>
-        <option>Parsons School of Design</option>
-        <option>Baruch College</option>
-        <option>Fordham University</option>
-        <option>Other College in NY State</option>
-      </select>
-      <textarea id="message" name="message" placeholder="Why do you want CampusCrush at your school?" rows="3" required></textarea>
-      <button type="submit">Join the Waitlist</button>
-      <div id="status"></div>
-    </form>
-  </div>
+  <section>
+    <h2>Real connections for real students</h2>
+    <p>CampusCrush helps college students meet new people, collaborate, and build meaningful connections — all verified with .edu emails for safety and authenticity.</p>
 
-  <div id="popup">
-    <h2>🎉 You're on the list!</h2>
-    <p>We’ll let you know when CampusCrush launches at your school 💌</p>
-  </div>
+    <div class="features">
+      <div class="feature">
+        <h3>🎓 Verified Campus Access</h3>
+        <p>Only students with .edu emails can join. Keep it real, keep it on campus.</p>
+      </div>
+      <div class="feature">
+        <h3>🤝 Smart Matching</h3>
+        <p>Find people who share your classes, study habits, or interests.</p>
+      </div>
+      <div class="feature">
+        <h3>📅 Schedule Sync</h3>
+        <p>Share your availability and connect with classmates when it actually fits your time.</p>
+      </div>
+      <div class="feature">
+        <h3>💞 Swipe or Study</h3>
+        <p>Whether you’re looking for a crush or a collab, CampusCrush makes it simple.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="waitlist">
+    <h2>Join the Waitlist</h2>
+    <p>Be one of the first to get access when we launch.</p>
+    <form id="contact-form">
+      <input type="email" id="user_email" name="user_email" placeholder="Enter your .edu email" required style="padding:12px; width:300px; border:1px solid #ccc; border-radius:8px;">
+      <button class="cta" type="submit">Join Now</button>
+      <p id="status" style="margin-top:15px; color:#555;"></p>
+    </form>
+  </section>
 
   <footer>
     © 2025 CampusCrush. All rights reserved.
   </footer>
 
-  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
   <script>
     (function() {
       emailjs.init("ulL6vwPV1VYplg_8l");
     })();
 
-    const popup = document.getElementById("popup");
-    const confettiCanvas = document.getElementById("confetti");
-    const statusEl = document.getElementById("status");
+    const form = document.getElementById('contact-form');
+    const status = document.getElementById('status');
 
-    const ctx = confettiCanvas.getContext("2d");
-    let confetti = [];
-    const colors = ["#ff9aa2", "#ffb7b2", "#ffd3b6", "#ffffb5", "#c7ceea"];
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
 
-    function createConfetti() {
-      for (let i = 0; i < 100; i++) {
-        confetti.push({
-          x: Math.random() * window.innerWidth,
-          y: Math.random() * window.innerHeight - window.innerHeight,
-          r: Math.random() * 6 + 2,
-          color: colors[Math.floor(Math.random() * colors.length)],
-          speed: Math.random() * 3 + 2,
-        });
-      }
-    }
-
-    function drawConfetti() {
-      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-      confetti.forEach((c) => {
-        ctx.beginPath();
-        ctx.arc(c.x, c.y, c.r, 0, Math.PI * 2);
-        ctx.fillStyle = c.color;
-        ctx.fill();
-        c.y += c.speed;
-        if (c.y > window.innerHeight) c.y = -10;
-      });
-    }
-
-    function animateConfetti() {
-      drawConfetti();
-      requestAnimationFrame(animateConfetti);
-    }
-
-    createConfetti();
-    animateConfetti();
-
-    document.getElementById("contact-form").addEventListener("submit", function(e) {
-      e.preventDefault();
-
-      const email = document.getElementById("email").value;
-      if (!email.endsWith(".edu")) {
-        statusEl.textContent = "❌ Please use your .edu college email address.";
-        statusEl.className = "error";
+      const email = document.getElementById('user_email').value;
+      if (!email.endsWith('.edu')) {
+        status.textContent = "Please use a valid .edu email.";
+        status.style.color = "red";
         return;
       }
 
-      statusEl.textContent = "⏳ Sending...";
-      statusEl.className = "";
-
-      emailjs.sendForm("campuscrush_service", "template_campuscrush", this)
+      status.textContent = "Sending...";
+      emailjs.sendForm('campuscrush_service', 'template_campuscrush', this)
         .then(() => {
-          this.reset();
-          statusEl.textContent = "";
-          popup.classList.add("active");
-          setTimeout(() => popup.classList.remove("active"), 4000);
-        })
-        .catch(() => {
-          statusEl.textContent = "❌ Something went wrong. Try again.";
-          statusEl.className = "error";
+          status.textContent = "✅ You’re on the list! We’ll be in touch soon.";
+          form.reset();
+        }, () => {
+          status.textContent = "❌ Oops! Something went wrong. Try again.";
+          status.style.color = "red";
         });
     });
   </script>
