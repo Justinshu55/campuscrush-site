@@ -428,6 +428,37 @@
   }
 </script>
 
+<button id="installAppBtn" style="
+  position:fixed;left:16px;right:16px;bottom:16px;z-index:9999;
+  display:none;padding:12px 16px;border:none;border-radius:999px;
+  background:#FFB7A2;color:#1C2D5A;font-weight:800;box-shadow:0 8px 24px rgba(0,0,0,.2);
+">Install CampusCrush</button>
+
+<script>
+  let deferredPrompt = null;
+  const btn = document.getElementById('installAppBtn');
+
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();          // stop auto-prompt
+    deferredPrompt = e;          // stash the event
+    btn.style.display = 'block'; // show our button
+  });
+
+  btn.addEventListener('click', async () => {
+    if (!deferredPrompt) return;
+    deferredPrompt.prompt();                         // show Chrome’s prompt
+    const { outcome } = await deferredPrompt.userChoice;
+    console.log('Install outcome:', outcome);
+    deferredPrompt = null;
+    btn.style.display = 'none';
+  });
+
+  // Optional: hide the button if already installed
+  window.matchMedia('(display-mode: standalone)').addEventListener('change', (e) => {
+    if (e.matches) btn.style.display = 'none';
+  });
+</script>
+
 
 </body>
 </html>
