@@ -280,6 +280,19 @@
   .hero h1, .hero-left h1 { font-size: 26px; }
 }
 
+/* --- Fix: ensure Join Waitlist button is clickable on mobile --- */
+a.btn, button, .cta, .submit {
+  position: relative;
+  z-index: 10;       /* bring button to top */
+  pointer-events: auto;
+}
+
+header, section, .hero {
+  z-index: 1;
+  position: relative;
+}
+
+
   </style>
   
 </head>
