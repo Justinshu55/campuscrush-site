@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>CampusCrush — Beta</title>
+  <meta name="theme-color" content="#1C2D5A" />
+  <style>
+    :root{
+      --navy:#1C2D5A; --navy-2:#23366E;
+      --peach:#FFB7A2; --peach-2:#FF9E8C;
+      --muted:#CBD3E8; --white:#fff;
+      --bg:linear-gradient(180deg,#1C2D5A 0%, #122043 100%);
+    }
+    *{box-sizing:border-box} html,body{margin:0;height:100%}
+    body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;background:var(--bg);color:#fff}
+
+    .wrap{max-width:980px;margin:0 auto;padding:16px clamp(14px,4vw,24px) 28px}
+
+    header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 0}
+    .brand{display:flex;align-items:center;gap:10px}
+    .logo{width:40px;height:40px;border-radius:10px;background:var(--peach);display:grid;place-items:center;box-shadow:0 6px 18px rgba(255,183,162,.14)}
+    .logo svg{width:20px;height:20px;fill:#fff}
+    .title{font-weight:800;letter-spacing:.2px}
+    .nav{display:flex;gap:10px}
+    .ghost{background:transparent;border:1px solid rgba(255,255,255,.08);color:var(--muted);padding:8px 12px;border-radius:999px}
+    .cta{background:linear-gradient(90deg,var(--peach),var(--peach-2));color:#1C2D5A;border:none;padding:9px 14px;border-radius:999px;font-weight:800}
+
+    h1{font-size:26px;margin:10px 0 8px}
+    p.lead{color:rgba(255,255,255,.92);margin:0 0 18px}
+
+    .grid{display:grid;grid-template-columns:1fr;gap:16px}
+    @media(min-width:900px){ .grid{grid-template-columns:1.05fr .95fr} }
+
+    .card{background:linear-gradient(180deg,var(--navy-2),rgba(35,54,110,.9));border:1px solid rgba(255,255,255,.06);
+          border-radius:14px;padding:16px;box-shadow:0 18px 40px rgba(0,0,0,.35)}
+    .card h3{margin:4px 0 8px}
+    label{display:block;font-size:13px;color:var(--muted);margin:10px 0 6px;font-weight:600}
+    input,select,textarea{width:100%;padding:12px 14px;border-radius:10px;border:1px solid rgba(255,255,255,.08);
+                          background:rgba(255,255,255,.04);color:#fff;font-size:15px}
+    .row{display:flex;gap:10px;flex-wrap:wrap}
+    .switch{display:flex;align-items:center;gap:10px;padding:10px;border:1px solid rgba(255,255,255,.08);
+            border-radius:12px;background:rgba(255,255,255,.03)}
+    .switch input{width:auto}
+    .pill{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.08);cursor:pointer}
+    .pill.active{background:linear-gradient(90deg,var(--peach),var(--peach-2));color:#1C2D5A;border-color:transparent;font-weight:800}
+
+    /* profile preview */
+    .profile{display:flex;gap:12px}
+    .avatar{width:72px;height:72px;border-radius:12px;background:#d9d9d9 url('https://images.unsplash.com/photo-1527980965255-d3b416303d12?q=80&w=400&auto=format&fit=crop') center/cover no-repeat;box-shadow:0 6px 18px rgba(0,0,0,.35)}
+    .blur .avatar{filter: blur(8px)}
+    .fields{flex:1}
+    .name{font-weight:800;font-size:18px}
+    .name.initials .full{display:none}
+    .name.initials .abbr{display:inline}
+    .name .abbr{display:none}
+
+    /* schedule */
+    .sched{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+    .block{padding:10px;border-radius:10px;text-align:center;border:1px solid rgba(255,255,255,.08);cursor:pointer;background:rgba(255,255,255,.03)}
+    .block.active{background:linear-gradient(90deg,var(--peach),var(--peach-2));color:#1C2D5A;font-weight:800;border-color:transparent}
+
+    /* matches */
+    .matches{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    @media(max-width:640px){ .matches{grid-template-columns:1fr} }
+    .card-match{border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.02)}
+    .photo{height:210px;background:#ccc url('https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=600&auto=format&fit=crop') center/cover no-repeat}
+    .blur .photo{filter: blur(10px)}
+    .content{padding:12px}
+    .btns{display:flex;gap:8px}
+    .btn{flex:1;border:none;border-radius:10px;padding:10px;font-weight:800;cursor:pointer}
+    .like{background:linear-gradient(90deg,var(--peach),var(--peach-2));color:#1C2D5A}
+    .pass{background:transparent;border:1px solid rgba(255,255,255,.15);color:#fff}
+    .reveal{display:none}
+
+    .save{width:100%;margin-top:10px;border:none;border-radius:999px;padding:12px;background:linear-gradient(90deg,var(--peach),var(--peach-2));color:#1C2D5A;font-weight:900}
+    .note{color:var(--muted);font-size:13px;margin-top:6px}
+
+    /* modal */
+    .modal{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;align-items:center;justify-content:center;padding:16px;z-index:50}
+    .modal.active{display:flex}
+    .modal .box{background:#fff;color:#222;border-radius:16px;max-width:440px;width:100%;padding:18px}
+    .box h4{margin:0 0 8px}
+    .box .row{margin-top:8px}
+    .box .row label{color:#444}
+    .box .submit{margin-top:12px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="logo">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.33-4.35-9.5-6.17C-0.02 11.03 3 5 7.5 6.5 9.07 7.07 10 9 12 11c2-2 2.93-3.93 4.5-4.5C21 5 24 11.03 21.5 14.83 19.33 16.65 12 21 12 21z" fill="#fff"/></svg>
+        </div>
+        <div class="title">CampusCrush — Beta</div>
+      </div>
+      <div class="nav">
+        <a class="ghost" href="index.html">← Back</a>
+      </div>
+    </header>
+
+    <h1>Privacy-first matching demo</h1>
+    <p class="lead">Incognito by default. Cross-campus visibility. Study/Dating modes. A light schedule to improve matches.</p>
+
+    <div class="grid">
+      <!-- LEFT: Settings -->
+      <section class="card" id="settings">
+        <h3>Profile & visibility</h3>
+
+        <div class="profile" id="preview">
+          <div class="avatar"></div>
+          <div class="fields">
+            <div class="name" id="nameDisplay">
+              <span class="full">Alex Chen</span>
+              <span class="abbr">A. C.</span>
+            </div>
+            <div class="note" id="modeNote">Mode: Dating</div>
+          </div>
+        </div>
+
+        <div class="row" style="margin-top:10px">
+          <div class="switch">
+            <input type="checkbox" id="incognito" checked />
+            <label for="incognito">Incognito (blur + initials until mutual like)</label>
+          </div>
+          <div class="switch">
+            <input type="checkbox" id="crosscampus" />
+            <label for="crosscampus">Cross-campus visibility (match nearby schools)</label>
+          </div>
+        </div>
+
+        <label for="fullname">Display name</label>
+        <input id="fullname" placeholder="Your name (e.g., Alex Chen)" value="Alex Chen" />
+
+        <label for="school">Your college</label>
+        <select id="school">
+          <option>Parsons School of Design</option>
+          <option>New York University</option>
+          <option>Columbia University</option>
+          <option>Pratt Institute</option>
+          <option>Fashion Institute of Technology (FIT)</option>
+          <option>Fordham University</option>
+          <option>Other</option>
+        </select>
+
+        <label>Mode</label>
+        <div class="row" id="modes">
+          <button class="pill active" data-mode="dating">Dating</button>
+          <button class="pill" data-mode="study">Study</button>
+          <button class="pill" data-mode="group">Group / Double Date</button>
+        </div>
+
+        <h3 style="margin-top:14px">Schedule (helps smarter matches)</h3>
+        <div class="row" style="margin-bottom:6px">
+          <div class="pill" data-day="Mon">Mon</div>
+          <div class="pill" data-day="Tue">Tue</div>
+          <div class="pill" data-day="Wed">Wed</div>
+          <div class="pill" data-day="Thu">Thu</div>
+          <div class="pill" data-day="Fri">Fri</div>
+        </div>
+        <div class="sched" id="sched">
+          <!-- each is Morning / Afternoon / Evening toggle -->
+          <div class="block" data-slot="Mon-Morning">Mon AM</div>
+          <div class="block" data-slot="Mon-Afternoon">Mon PM</div>
+          <div class="block" data-slot="Mon-Evening">Mon Eve</div>
+          <div class="block" data-slot="Tue-Morning">Tue AM</div>
+          <div class="block" data-slot="Tue-Afternoon">Tue PM</div>
+          <div class="block" data-slot="Tue-Evening">Tue Eve</div>
+          <div class="block" data-slot="Wed-Morning">Wed AM</div>
+          <div class="block" data-slot="Wed-Afternoon">Wed PM</div>
+          <div class="block" data-slot="Wed-Evening">Wed Eve</div>
+          <div class="block" data-slot="Thu-Morning">Thu AM</div>
+          <div class="block" data-slot="Thu-Afternoon">Thu PM</div>
+          <div class="block" data-slot="Thu-Evening">Thu Eve</div>
+          <div class="block" data-slot="Fri-Morning">Fri AM</div>
+          <div class="block" data-slot="Fri-Afternoon">Fri PM</div>
+          <div class="block" data-slot="Fri-Evening">Fri Eve</div>
+        </div>
+
+        <button class="save" id="save">Save settings</button>
+        <div class="note">Settings are saved locally (no account needed). Toggle Incognito anytime.</div>
+      </section>
+
+      <!-- RIGHT: Matches demo -->
+      <section class="card">
+        <h3>Demo matches</h3>
+        <p class="note">When Incognito is on, photos blur and names show initials until mutual like.</p>
+
+        <div class="matches" id="matches">
+          <!-- example card -->
+          <div class="card-match blur" data-id="m1">
+            <div class="photo"></div>
+            <div class="content">
+              <div class="name" style="font-weight:800">Sam R.</div>
+              <div class="note">NYU · Evening free Tue/Thu</div>
+              <div class="btns" style="margin-top:10px">
+                <button class="btn pass">Pass</button>
+                <button class="btn like">Like</button>
+              </div>
+              <button class="btn reveal" style="margin-top:8px;background:#fff;color:#1C2D5A">Reveal profile</button>
+              <button class="btn meet" style="margin-top:8px;background:transparent;border:1px solid rgba(255,255,255,.2);color:#fff">Mark as met</button>
+            </div>
+          </div>
+
+          <div class="card-match blur" data-id="m2">
+            <div class="photo" style="background-image:url('https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=600&auto=format&fit=crop')"></div>
+            <div class="content">
+              <div class="name" style="font-weight:800">J. Lee</div>
+              <div class="note">Parsons · Afternoon free M/W</div>
+              <div class="btns" style="margin-top:10px">
+                <button class="btn pass">Pass</button>
+                <button class="btn like">Like</button>
+              </div>
+              <button class="btn reveal" style="margin-top:8px;background:#fff;color:#1C2D5A">Reveal profile</button>
+              <button class="btn meet" style="margin-top:8px;background:transparent;border:1px solid rgba(255,255,255,.2);color:#fff">Mark as met</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="note" style="margin-top:10px">This is a prototype — in production, “Reveal” happens only on mutual likes.</div>
+      </section>
+    </div>
+  </div>
+
+  <!-- Private feedback modal -->
+  <div class="modal" id="feedbackModal" aria-hidden="true">
+    <div class="box">
+      <h4>Private feedback (never public)</h4>
+      <p style="margin:0;color:#555">Helps keep the community safe & respectful.</p>
+
+      <div class="row">
+        <label><input type="checkbox" id="fb_safe"> I felt safe</label>
+        <label><input type="checkbox" id="fb_respect"> They were respectful</label>
+        <label><input type="checkbox" id="fb_again"> I’d meet again</label>
+      </div>
+
+      <label for="fb_notes" style="margin-top:8px">Notes (optional)</label>
+      <textarea id="fb_notes" placeholder="Anything we should know?" style="color:#222;background:#f7f7f7"></textarea>
+
+      <label for="fb_email" style="margin-top:8px">Your .edu email (optional, for follow-up)</label>
+      <input id="fb_email" placeholder="you@college.edu" style="color:#222;background:#f7f7f7"/>
+
+      <button class="save submit" id="fb_send">Send feedback</button>
+      <div id="fb_status" style="margin-top:6px;color:#666;font-weight:700"></div>
+    </div>
+  </div>
+
+  <!-- EmailJS (for feedback send) -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script>
+    // ----- STATE -----
+    const state = {
+      incognito: true,
+      crosscampus: false,
+      name: 'Alex Chen',
+      mode: 'dating',
+      schedule: new Set(), // e.g., "Mon-Morning"
+    };
+
+    // restore from localStorage
+    (function restore(){
+      try{
+        const saved = JSON.parse(localStorage.getItem('ccrush-beta')||'{}');
+        Object.assign(state, saved, { schedule: new Set(saved.schedule||[]) });
+      }catch{}
+    })();
+
+    // elements
+    const incognitoEl = document.getElementById('incognito');
+    const crossEl = document.getElementById('crosscampus');
+    const fullEl = document.getElementById('fullname');
+    const nameDisplay = document.getElementById('nameDisplay');
+    const preview = document.getElementById('preview');
+    const modes = document.getElementById('modes');
+    const modeNote = document.getElementById('modeNote');
+    const sched = document.getElementById('sched');
+    const saveBtn = document.getElementById('save');
+
+    // apply UI from state
+    function applyUI(){
+      incognitoEl.checked = state.incognito;
+      crossEl.checked = state.crosscampus;
+      fullEl.value = state.name;
+      nameDisplay.querySelector('.full').textContent = state.name;
+      nameDisplay.querySelector('.abbr').textContent = getInitials(state.name);
+
+      preview.classList.toggle('blur', state.incognito);
+      nameDisplay.classList.toggle('initials', state.incognito);
+
+      modeNote.textContent = 'Mode: ' + (state.mode === 'study' ? 'Study' : state.mode === 'group' ? 'Group' : 'Dating');
+
+      // sched blocks
+      Array.from(sched.querySelectorAll('.block')).forEach(b=>{
+        const key = b.dataset.slot;
+        b.classList.toggle('active', state.schedule.has(key));
+      });
+
+      // matches blur toggle
+      document.querySelectorAll('.card-match').forEach(card=>{
+        card.classList.toggle('blur', state.incognito);
+        const nameEl = card.querySelector('.name');
+        if(nameEl){
+          const text = nameEl.textContent.trim();
+          const initials = getInitials(text);
+          // show initials if incognito
+          if(state.incognito){
+            nameEl.dataset.full = text;
+            nameEl.textContent = initials;
+          }else{
+            nameEl.textContent = nameEl.dataset.full || text;
+          }
+        }
+      });
+
+      // pills active
+      modes.querySelectorAll('.pill').forEach(p=>p.classList.toggle('active', p.dataset.mode===state.mode));
+    }
+
+    function getInitials(name){
+      return name.split(/\s+/).filter(Boolean).map(s=>s[0].toUpperCase()+'.').join(' ').slice(0,5);
+    }
+
+    // wire inputs
+    incognitoEl.addEventListener('change', ()=>{ state.incognito = incognitoEl.checked; applyUI(); persist(); });
+    crossEl.addEventListener('change', ()=>{ state.crosscampus = crossEl.checked; persist(); });
+
+    fullEl.addEventListener('input', ()=>{
+      state.name = fullEl.value || 'You';
+      applyUI(); persist();
+    });
+
+    modes.addEventListener('click', (e)=>{
+      if(e.target.closest('.pill')){
+        const m = e.target.closest('.pill').dataset.mode;
+        state.mode = m; applyUI(); persist();
+      }
+    });
+
+    sched.addEventListener('click', (e)=>{
+      const b = e.target.closest('.block'); if(!b) return;
+      const key = b.dataset.slot;
+      if(state.schedule.has(key)) state.schedule.delete(key); else state.schedule.add(key);
+      applyUI(); persist();
+    });
+
+    function persist(){
+      localStorage.setItem('ccrush-beta', JSON.stringify({...state, schedule: Array.from(state.schedule)}));
+    }
+
+    // Save button (noop except feedback)
+    saveBtn.addEventListener('click', ()=>{
+      applyUI();
+      saveBtn.textContent = 'Saved ✓';
+      setTimeout(()=> saveBtn.textContent='Save settings', 1200);
+    });
+
+    // demo match buttons
+    document.getElementById('matches').addEventListener('click', (e)=>{
+      const card = e.target.closest('.card-match');
+      if(!card) return;
+      if(e.target.classList.contains('pass')){
+        card.style.opacity = .4; return;
+      }
+      if(e.target.classList.contains('like')){
+        // simulate 50% mutual
+        const mutual = Math.random() > .5;
+        if(mutual){
+          const rev = card.querySelector('.reveal');
+          rev.style.display = 'block';
+          rev.textContent = 'Mutual! Reveal';
+        }else{
+          e.target.textContent = 'Sent ♥';
+          setTimeout(()=> e.target.textContent='Like', 900);
+        }
+        return;
+      }
+      if(e.target.classList.contains('reveal')){
+        // “reveal” profile – turn off blur for this card
+        card.classList.remove('blur');
+        e.target.style.display = 'none';
+        return;
+      }
+      if(e.target.classList.contains('meet')){
+        openFeedback();
+      }
+    });
+
+    // EmailJS for feedback (optional)
+    emailjs.init("ulL6vwPV1VYplg_8l");
+
+    // feedback modal
+    const modal = document.getElementById('feedbackModal');
+    const fbSend = document.getElementById('fb_send');
+    const fbStatus = document.getElementById('fb_status');
+
+    function openFeedback(){
+      modal.classList.add('active');
+    }
+    modal.addEventListener('click', (e)=>{
+      if(e.target === modal) modal.classList.remove('active');
+    });
+
+    fbSend.addEventListener('click', ()=>{
+      const safe = document.getElementById('fb_safe').checked ? 'Yes' : 'No';
+      const resp = document.getElementById('fb_respect').checked ? 'Yes' : 'No';
+      const again = document.getElementById('fb_again').checked ? 'Yes' : 'No';
+      const notes = document.getElementById('fb_notes').value.trim();
+      const email = (document.getElementById('fb_email').value.trim() || 'beta@campuscrush.app');
+
+      fbStatus.textContent = 'Sending...';
+
+      // Send via your existing template fields
+      emailjs.send('campuscrush_service','template_campuscrush', {
+        from_name: state.name || 'Beta User',
+        from_email: email,
+        message: `[PRIVATE FEEDBACK]\nSafe: ${safe}\nRespectful: ${resp}\nMeet again: ${again}\nNotes: ${notes}`
+      })
+      .then(()=>{
+        fbStatus.textContent = 'Thanks — received ✅';
+        setTimeout(()=>{ modal.classList.remove('active'); fbStatus.textContent=''; }, 1000);
+        // clear checks
+        document.getElementById('fb_safe').checked = false;
+        document.getElementById('fb_respect').checked = false;
+        document.getElementById('fb_again').checked = false;
+        document.getElementById('fb_notes').value = '';
+      })
+      .catch(()=>{
+        fbStatus.textContent = 'Could not send. Try later.';
+      });
+    });
+
+    // init
+    applyUI();
+  </script>
+</body>
+</html>
