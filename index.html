@@ -27,6 +27,17 @@
   <meta name="theme-color" content="#1C2D5A">
 
   <style>
+    /* Beta badge + link */
+a.cta.beta { display:inline-flex; align-items:center; gap:8px; text-decoration:none; }
+.badge {
+  background:#fff; color:#1C2D5A; font-weight:900; font-size:11px;
+  padding:3px 6px; border-radius:999px;
+  box-shadow:0 4px 12px rgba(0,0,0,.15);
+}
+@media (max-width: 720px){
+  a.cta.beta { width:100%; justify-content:center; }
+}
+
     /* ---------- Palette (Navy + Soft Peach) ---------- */
     :root{
       --navy: #1C2D5A;
@@ -284,8 +295,15 @@
 
       <nav>
         <button class="ghost" onclick="document.getElementById('features').scrollIntoView({behavior:'smooth'})">Features</button>
+      
+        <!-- new: Try Beta link -->
+        <a class="cta beta" href="beta.html">
+          Try Beta <span class="badge">NEW</span>
+        </a>
+      
         <button class="cta" onclick="document.getElementById('signup').scrollIntoView({behavior:'smooth'})">Join Waitlist</button>
       </nav>
+      
     </header>
 
     <main class="hero" role="main" aria-labelledby="hero-title">
