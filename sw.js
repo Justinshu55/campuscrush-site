@@ -7,19 +7,14 @@ const CORE = [
   '/favicon.png',
   '/icons/icon-192.png',
   '/icons/icon-512.png',
-  '/offline.html',
   '/icons/maskable-512.png'
 ];
-
-return (await cache.match('/offline.html')) ||
-       (await cache.match('/')) ||
-       (await cache.match('/index.html'));
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE).then(cache => cache.addAll(CORE))
   );
-  self.skipWaiting();
+  // ❌ removed self.skipWaiting() so the new worker can stay in "waiting" state
 });
 
 self.addEventListener('activate', (event) => {
@@ -33,6 +28,13 @@ self.addEventListener('activate', (event) => {
     await Promise.all(names.filter(n => n !== CACHE).map(n => caches.delete(n)));
   })());
   self.clients.claim();
+});
+
+// ✅ Listen for a message from the page to activate immediately
+self.addEventListener('message', (event) => {
+  if (event.data && event.data.type === 'SKIP_WAITING') {
+    self.skipWaiting();
+  }
 });
 
 // Network-first for navigations; fall back to cached '/', then '/index.html'
