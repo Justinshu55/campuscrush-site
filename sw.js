@@ -7,8 +7,13 @@ const CORE = [
   '/favicon.png',
   '/icons/icon-192.png',
   '/icons/icon-512.png',
+  '/offline.html',
   '/icons/maskable-512.png'
 ];
+
+return (await cache.match('/offline.html')) ||
+       (await cache.match('/')) ||
+       (await cache.match('/index.html'));
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
