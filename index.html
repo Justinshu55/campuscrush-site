@@ -28,15 +28,15 @@
 
   <style>
     /* Beta badge + link */
-a.cta.beta { display:inline-flex; align-items:center; gap:8px; text-decoration:none; }
-.badge {
-  background:#fff; color:#1C2D5A; font-weight:900; font-size:11px;
-  padding:3px 6px; border-radius:999px;
-  box-shadow:0 4px 12px rgba(0,0,0,.15);
-}
-@media (max-width: 720px){
-  a.cta.beta { width:100%; justify-content:center; }
-}
+    a.cta.beta { display:inline-flex; align-items:center; gap:8px; text-decoration:none; }
+    .badge {
+      background:#fff; color:#1C2D5A; font-weight:900; font-size:11px;
+      padding:3px 6px; border-radius:999px;
+      box-shadow:0 4px 12px rgba(0,0,0,.15);
+    }
+    @media (max-width: 720px){
+      a.cta.beta { width:100%; justify-content:center; }
+    }
 
     /* ---------- Palette (Navy + Soft Peach) ---------- */
     :root{
@@ -123,6 +123,7 @@ a.cta.beta { display:inline-flex; align-items:center; gap:8px; text-decoration:n
       border:1px solid rgba(255,255,255,0.06);
       padding:8px 14px;border-radius:999px;
       font-weight:600;
+      cursor:pointer;
     }
 
     .cta {
@@ -131,6 +132,11 @@ a.cta.beta { display:inline-flex; align-items:center; gap:8px; text-decoration:n
       padding:10px 18px;border-radius:999px;border:none;font-weight:700;
       cursor:pointer;box-shadow:var(--shadow);
       position: relative; z-index: 10; /* ensure clickable */
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:6px;
     }
 
     /* ---------- Hero ---------- */
@@ -193,7 +199,13 @@ a.cta.beta { display:inline-flex; align-items:center; gap:8px; text-decoration:n
     }
     .submit:hover { transform: translateY(-3px); box-shadow:0 18px 40px rgba(255,158,140,0.18); }
 
-    #status { text-align:center; margin-top:12px; font-weight:600; color:var(--peach); }
+    #status {
+      text-align:center;
+      margin-top:12px;
+      font-weight:600;
+      color:var(--peach);
+      min-height:1.4em;
+    }
 
     /* ---------- Features block ---------- */
     .features {
@@ -230,7 +242,10 @@ a.cta.beta { display:inline-flex; align-items:center; gap:8px; text-decoration:n
     }
 
     /* subtle focus state */
-    input:focus, select:focus, textarea:focus{ box-shadow: 0 6px 18px rgba(35,54,110,0.25); border-color: rgba(255,183,162,0.18); }
+    input:focus, select:focus, textarea:focus{
+      box-shadow: 0 6px 18px rgba(35,54,110,0.25);
+      border-color: rgba(255,183,162,0.18);
+    }
 
     /* --- Mobile polish (keeps your old layout) --- */
     @media (max-width: 720px) {
@@ -268,7 +283,7 @@ a.cta.beta { display:inline-flex; align-items:center; gap:8px; text-decoration:n
       nav .ghost { display: none; }
     }
 
-    /* --- Fix: ensure Join Waitlist button is clickable on mobile --- */
+    /* --- Fix: ensure primary CTAs are clickable on mobile --- */
     a.btn, button, .cta, .submit {
       position: relative;
       z-index: 10;
@@ -294,16 +309,27 @@ a.cta.beta { display:inline-flex; align-items:center; gap:8px; text-decoration:n
       </div>
 
       <nav>
-        <button class="ghost" onclick="document.getElementById('features').scrollIntoView({behavior:'smooth'})">Features</button>
-      
-        <!-- new: Try Beta link -->
+        <button
+          class="ghost"
+          type="button"
+          id="featuresBtn"
+        >
+          Features
+        </button>
+
+        <!-- Try Beta link -->
         <a class="cta beta" href="beta.html">
           Try Beta <span class="badge">NEW</span>
         </a>
-      
-        <button class="cta" onclick="document.getElementById('signup').scrollIntoView({behavior:'smooth'})">Join Waitlist</button>
+
+        <button
+          class="cta"
+          type="button"
+          id="joinWaitlistBtn"
+        >
+          Join Waitlist
+        </button>
       </nav>
-      
     </header>
 
     <main class="hero" role="main" aria-labelledby="hero-title">
@@ -330,20 +356,26 @@ a.cta.beta { display:inline-flex; align-items:center; gap:8px; text-decoration:n
         </section>
       </div>
 
-      <!-- ID ADDED HERE -->
-      <aside id="signup">
-        <div class="card" role="form" aria-labelledby="signup-title">
+      <!-- Signup / waitlist card -->
+      <aside id="signup" aria-label="Join CampusCrush waitlist">
+        <div class="card" aria-labelledby="signup-title">
           <h3 id="signup-title" style="margin:0 0 12px 0;color:var(--white)">Join the waitlist</h3>
           <p style="margin:0 0 12px 0;color:var(--muted);font-size:13px">Get early access and feature invites — we respect privacy.</p>
 
-          <form id="contact-form" aria-label="CampusCrush waitlist form">
+          <form id="contact-form" aria-label="CampusCrush waitlist form" novalidate>
             <label for="user_name">Name</label>
             <input id="user_name" name="user_name" type="text" placeholder="Your full name" required>
 
             <label for="user_email">.edu Email</label>
-            <input id="user_email" name="user_email" type="email" placeholder="you@college.edu" required
+            <input
+              id="user_email"
+              name="user_email"
+              type="email"
+              placeholder="you@college.edu"
+              required
               pattern="^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.edu$"
-              title="Please use your .edu email address">
+              title="Please use your .edu email address"
+            >
 
             <label for="college">College</label>
             <select id="college" name="college" required>
@@ -364,23 +396,29 @@ a.cta.beta { display:inline-flex; align-items:center; gap:8px; text-decoration:n
             <label for="message">Message (optional)</label>
             <textarea id="message" name="message" placeholder="Tell us why you'd like to join (optional)"></textarea>
 
-            <button class="submit" type="submit" aria-live="polite">Join the Waitlist</button>
-            <div id="status" role="status" aria-atomic="true"></div>
+            <button class="submit" type="submit">Join the Waitlist</button>
+            <div id="status" role="status" aria-live="polite" aria-atomic="true"></div>
           </form>
         </div>
       </aside>
     </main>
 
     <footer>
-      <p>© 2025 CampusCrush — All rights reserved · <a href="mailto:hello@campuscrush.app" style="color:var(--peach)">Contact</a></p>
+      <p>© 2025 CampusCrush — All rights reserved ·
+        <a href="mailto:hello@campuscrush.app" style="color:var(--peach)">Contact</a>
+      </p>
     </footer>
   </div>
 
   <!-- EmailJS -->
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <script>
-    // init EmailJS
-    emailjs.init("ulL6vwPV1VYplg_8l"); // your public key
+    // Init EmailJS safely
+    try {
+      emailjs.init("ulL6vwPV1VYplg_8l"); // your public key
+    } catch (e) {
+      console.error("EmailJS init error:", e);
+    }
 
     const form = document.getElementById('contact-form');
     const statusEl = document.getElementById('status');
@@ -391,9 +429,18 @@ a.cta.beta { display:inline-flex; align-items:center; gap:8px; text-decoration:n
       statusEl.textContent = '';
       statusEl.style.color = '';
 
-      const email = document.getElementById('user_email').value.trim();
+      const emailInput = document.getElementById('user_email');
+      const email = emailInput.value.trim();
+
       if (!email.toLowerCase().endsWith('.edu')) {
         statusEl.textContent = "Please use a .edu email address.";
+        statusEl.style.color = 'var(--peach)';
+        emailInput.focus();
+        return;
+      }
+
+      if (!form.checkValidity()) {
+        statusEl.textContent = "Please fill in the required fields.";
         statusEl.style.color = 'var(--peach)';
         return;
       }
@@ -401,7 +448,7 @@ a.cta.beta { display:inline-flex; align-items:center; gap:8px; text-decoration:n
       statusEl.textContent = "Sending…";
       statusEl.style.color = 'var(--muted)';
 
-      emailjs.sendForm('campuscrush_service', 'template_campuscrush', this)
+      emailjs.sendForm('campuscrush_service', 'template_campuscrush', form)
         .then(() => {
           statusEl.textContent = "✅ You’re on the waitlist — thanks!";
           statusEl.style.color = '#8FE3C3';
@@ -413,10 +460,8 @@ a.cta.beta { display:inline-flex; align-items:center; gap:8px; text-decoration:n
           statusEl.style.color = 'var(--peach)';
         });
     });
-  </script>
 
-  <!-- Service worker registration -->
-  <script>
+    // Service worker registration
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('/sw.js')
@@ -424,6 +469,55 @@ a.cta.beta { display:inline-flex; align-items:center; gap:8px; text-decoration:n
           .catch(console.error);
       });
     }
+
+    // Custom install prompt
+    let deferredPrompt = null;
+    const installBtn = document.getElementById('installAppBtn');
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      if (installBtn) installBtn.style.display = 'block';
+    });
+
+    if (installBtn) {
+      installBtn.addEventListener('click', async () => {
+        if (!deferredPrompt) return;
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        console.log('Install outcome:', outcome);
+        deferredPrompt = null;
+        installBtn.style.display = 'none';
+      });
+    }
+
+    window.matchMedia('(display-mode: standalone)').addEventListener('change', (e) => {
+      if (e.matches && installBtn) installBtn.style.display = 'none';
+    });
+
+    // Smooth scroll + bounce for signup
+    (function(){
+      const signupSection = document.getElementById('signup');
+      const featuresSection = document.getElementById('features');
+      const joinBtn = document.getElementById('joinWaitlistBtn');
+      const featuresBtn = document.getElementById('featuresBtn');
+
+      if (joinBtn && signupSection) {
+        joinBtn.addEventListener('click', () => {
+          signupSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          setTimeout(() => {
+            signupSection.classList.add('bounce');
+            setTimeout(()=>signupSection.classList.remove('bounce'), 900);
+          }, 300);
+        });
+      }
+
+      if (featuresBtn && featuresSection) {
+        featuresBtn.addEventListener('click', () => {
+          featuresSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      }
+    })();
   </script>
 
   <!-- Install prompt button (only shows when eligible) -->
@@ -432,45 +526,5 @@ a.cta.beta { display:inline-flex; align-items:center; gap:8px; text-decoration:n
     display:none;padding:12px 16px;border:none;border-radius:999px;
     background:#FFB7A2;color:#1C2D5A;font-weight:800;box-shadow:0 8px 24px rgba(0,0,0,.2);
   ">Install CampusCrush</button>
-
-  <script>
-    // Custom install prompt
-    let deferredPrompt = null;
-    const installBtn = document.getElementById('installAppBtn');
-
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault();
-      deferredPrompt = e;
-      installBtn.style.display = 'block';
-    });
-
-    installBtn.addEventListener('click', async () => {
-      if (!deferredPrompt) return;
-      deferredPrompt.prompt();
-      const { outcome } = await deferredPrompt.userChoice;
-      console.log('Install outcome:', outcome);
-      deferredPrompt = null;
-      installBtn.style.display = 'none';
-    });
-
-    window.matchMedia('(display-mode: standalone)').addEventListener('change', (e) => {
-      if (e.matches) installBtn.style.display = 'none';
-    });
-
-    // Add bounce effect when navigating to #signup (works with existing onclick)
-    (function(){
-      const signupSection = document.getElementById('signup');
-      const joinBtns = document.querySelectorAll('a[href="#signup"], .cta');
-      joinBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-          // allow smooth scroll first, then bounce
-          setTimeout(() => {
-            signupSection.classList.add('bounce');
-            setTimeout(()=>signupSection.classList.remove('bounce'), 900);
-          }, 300);
-        });
-      });
-    })();
-  </script>
 </body>
 </html>
