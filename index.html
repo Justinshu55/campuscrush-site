@@ -293,7 +293,60 @@
       z-index: 1;
       position: relative;
     }
+
+    /* FAQ */
+.faq {
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,0.06);
+  background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(255,255,255,.01));
+  box-shadow:0 16px 34px rgba(0,0,0,.32);
+}
+
+.faq-item + .faq-item {
+  border-top:1px solid rgba(255,255,255,0.06);
+}
+
+.faq-q {
+  width:100%;
+  text-align:left;
+  padding:12px 16px;
+  background:transparent;
+  border:none;
+  color:var(--white);
+  font-weight:600;
+  font-size:14px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  cursor:pointer;
+}
+
+.faq-icon {
+  font-size:18px;
+  color:var(--muted);
+  transition:transform .18s ease;
+}
+
+.faq-item.open .faq-icon {
+  transform:rotate(45deg);
+}
+
+.faq-a {
+  max-height:0;
+  overflow:hidden;
+  padding:0 16px;
+  color:var(--muted);
+  font-size:13px;
+  transition:max-height .2s ease, padding-bottom .2s ease;
+}
+
+.faq-item.open .faq-a {
+  max-height:120px; /* enough for 2–3 lines */
+  padding-bottom:10px;
+}
+
   </style>
+  
 </head>
 <body>
   <div class="site">
@@ -336,6 +389,22 @@
       <div class="hero-left">
         <h1 id="hero-title">Find study buddies, project partners, and maybe something more.</h1>
         <p class="lead">CampusCrush connects verified college students in your state — match by classes, schedules, and shared interests. Start small: join the waitlist and help shape the app.</p>
+        <div style="margin:10px 0 18px; display:flex; flex-wrap:wrap; gap:8px; align-items:center; font-size:13px; color:var(--muted);">
+          <span style="opacity:.9;">Launching first at:</span>
+          <span style="padding:6px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);">
+            Parsons
+          </span>
+          <span style="padding:6px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);">
+            NYU
+          </span>
+          <span style="padding:6px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);">
+            Columbia
+          </span>
+          <span style="padding:6px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.02);">
+            + your campus
+          </span>
+        </div>
+        
 
         <section aria-labelledby="features-title" id="features">
           <h2 id="features-title" style="color:var(--white);margin-bottom:14px">Upcoming features</h2>
@@ -354,6 +423,44 @@
             </div>
           </div>
         </section>
+        <section id="faq" aria-labelledby="faq-title" style="margin-top:24px;">
+          <h2 id="faq-title" style="color:var(--white);margin-bottom:10px;font-size:18px;">
+            FAQ
+          </h2>
+        
+          <div class="faq">
+            <div class="faq-item">
+              <button class="faq-q" type="button">
+                Is this another hookup app?
+                <span class="faq-icon">+</span>
+              </button>
+              <div class="faq-a">
+                <p>No. CampusCrush is designed around classes, schedules, and safety. You can use it for study partners, collab projects, or dating — you choose the mode.</p>
+              </div>
+            </div>
+        
+            <div class="faq-item">
+              <button class="faq-q" type="button">
+                How do you keep it safe?
+                <span class="faq-icon">+</span>
+              </button>
+              <div class="faq-a">
+                <p>We require .edu emails, default to Incognito mode in the beta, and use private post-meet feedback (never public) to flag bad vibes early.</p>
+              </div>
+            </div>
+        
+            <div class="faq-item">
+              <button class="faq-q" type="button">
+                Is my .edu email visible to other users?
+                <span class="faq-icon">+</span>
+              </button>
+              <div class="faq-a">
+                <p>No. Email is only used for verification and access — matches see your name, school, and whatever you choose to share.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+        
       </div>
 
       <!-- Signup / waitlist card -->
@@ -518,6 +625,20 @@
         });
       }
     })();
+
+    // FAQ accordion
+(function(){
+  const items = document.querySelectorAll('.faq-item');
+  items.forEach(item=>{
+    const btn = item.querySelector('.faq-q');
+    btn.addEventListener('click', ()=>{
+      const isOpen = item.classList.contains('open');
+      items.forEach(i=>i.classList.remove('open'));
+      if(!isOpen) item.classList.add('open');
+    });
+  });
+})();
+
   </script>
 
   <!-- Install prompt button (only shows when eligible) -->

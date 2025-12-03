@@ -150,6 +150,22 @@
           <button class="pill" data-mode="study">Study</button>
           <button class="pill" data-mode="group">Group / Double Date</button>
         </div>
+        <label style="margin-top:12px;">Interests / vibes (pick a few)</label>
+<div class="row" id="interests" aria-label="Interest tags">
+  <button type="button" class="pill" data-interest="International">International student</button>
+  <button type="button" class="pill" data-interest="Art/Design">Art / design kid</button>
+  <button type="button" class="pill" data-interest="CS/Tech">CS / tech</button>
+  <button type="button" class="pill" data-interest="Business/Finance">Business / finance</button>
+  <button type="button" class="pill" data-interest="Night owl">Night owl</button>
+  <button type="button" class="pill" data-interest="Early bird">Morning person</button>
+  <button type="button" class="pill" data-interest="NYC foodie">NYC foodie</button>
+  <button type="button" class="pill" data-interest="Chill hangs">Chill hangs</button>
+</div>
+
+<div class="note" id="interestPreview">
+  Your tags: International student, Art / design kid
+</div>
+
 
         <h3 style="margin-top:14px">Schedule (helps smarter matches)</h3>
         <div class="row" style="margin-bottom:6px">
@@ -251,18 +267,27 @@
   <script>
     // ----- STATE -----
     const state = {
-      incognito: true,
-      crosscampus: false,
-      name: 'Alex Chen',
-      mode: 'dating',
-      schedule: new Set(), // e.g., "Mon-Morning"
-    };
+  incognito: true,
+  crosscampus: false,
+  name: 'Alex Chen',
+  mode: 'dating',
+  schedule: new Set(), // e.g., "Mon-Morning"
+  interests: new Set(), // e.g., "International", "Night owl"
+};
+
 
     // restore from localStorage
     (function restore(){
       try{
         const saved = JSON.parse(localStorage.getItem('ccrush-beta')||'{}');
-        Object.assign(state, saved, { schedule: new Set(saved.schedule||[]) });
+        function persist(){
+  localStorage.setItem('ccrush-beta', JSON.stringify({
+    ...state,
+    schedule: Array.from(state.schedule),
+    interests: Array.from(state.interests),
+  }));
+}
+
       }catch{}
     })();
 
@@ -345,7 +370,7 @@
     });
 
     function persist(){
-      localStorage.setItem('ccrush-beta', JSON.stringify({...state, schedule: Array.from(state.schedule)}));
+      localStorage.setItem('ccrush-beta', JSON.stringify({...state, schedule: Array.from(state.schedule),interests: Array.from(state.interests)}));
     }
 
     // Save button (noop except feedback)
