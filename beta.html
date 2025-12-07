@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title>CampusCrush — Beta</title>
   <meta name="theme-color" content="#1C2D5A" />
+
   <style>
     :root{
       --navy:#1C2D5A; --navy-2:#23366E;
@@ -12,212 +13,502 @@
       --muted:#CBD3E8; --white:#fff;
       --bg:linear-gradient(180deg,#1C2D5A 0%, #122043 100%);
     }
-    *{box-sizing:border-box} html,body{margin:0;height:100%}
+    *{box-sizing:border-box}
+    html,body{margin:0;height:100%}
     body{
       font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;
       background:var(--bg);color:#fff;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
     }
 
-    .wrap{max-width:980px;margin:0 auto;padding:16px clamp(14px,4vw,24px) 28px}
-
-    header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 0}
-    .brand{display:flex;align-items:center;gap:10px}
-    .logo{width:40px;height:40px;border-radius:10px;background:var(--peach);display:grid;place-items:center;box-shadow:0 6px 18px rgba(255,183,162,.14)}
-    .logo svg{width:20px;height:20px;fill:#fff}
-    .title{font-weight:800;letter-spacing:.2px}
-    .nav{display:flex;gap:10px}
-    .ghost{background:transparent;border:1px solid rgba(255,255,255,.08);color:var(--muted);padding:8px 12px;border-radius:999px;text-decoration:none;font-size:13px}
-    .cta{background:linear-gradient(90deg,var(--peach),var(--peach-2));color:#1C2D5A;border:none;padding:9px 14px;border-radius:999px;font-weight:800;text-decoration:none;font-size:14px}
-
-    h1{font-size:26px;margin:10px 0 8px}
-    p.lead{color:rgba(255,255,255,.92);margin:0 0 18px}
-
-    .grid{display:grid;grid-template-columns:1fr;gap:16px}
-    @media(min-width:900px){ .grid{grid-template-columns:1.05fr .95fr} }
-
-    .card{
-      background:linear-gradient(180deg,var(--navy-2),rgba(35,54,110,.9));
-      border:1px solid rgba(255,255,255,.06);
-      border-radius:14px;padding:16px;
-      box-shadow:0 18px 40px rgba(0,0,0,.35)
-    }
-    .card h3{margin:4px 0 8px}
-    label{display:block;font-size:13px;color:var(--muted);margin:10px 0 6px;font-weight:600}
-    input,select,textarea{
-      width:100%;padding:12px 14px;border-radius:10px;
-      border:1px solid rgba(255,255,255,.08);
-      background:rgba(255,255,255,.04);color:#fff;font-size:15px
-    }
-    input::placeholder,textarea::placeholder{color:rgba(255,255,255,.6)}
-    textarea{resize:vertical;min-height:80px}
-    .row{display:flex;gap:10px;flex-wrap:wrap}
-    .switch{display:flex;align-items:center;gap:10px;padding:10px;border:1px solid rgba(255,255,255,.08);
-            border-radius:12px;background:rgba(255,255,255,.03);flex:1 1 160px}
-    .switch input{width:auto}
-    .pill{
-      display:inline-flex;align-items:center;gap:8px;padding:8px 12px;
-      border-radius:999px;border:1px solid rgba(255,255,255,.08);cursor:pointer;
-      background:transparent;font-size:13px
-    }
-    .pill.active{
-      background:linear-gradient(90deg,var(--peach),var(--peach-2));
-      color:#1C2D5A;border-color:transparent;font-weight:800
-    }
-
-    /* smaller pills for interests */
-    #interests .pill{
-      font-size:12px;
-      padding:6px 10px;
-    }
-
-    /* profile preview */
-    .profile{display:flex;gap:12px}
-    .avatar{
-      width:72px;height:72px;border-radius:12px;
-      background:#d9d9d9 url('https://images.unsplash.com/photo-1527980965255-d3b416303d12?q=80&w=400&auto=format&fit=crop') center/cover no-repeat;
-      box-shadow:0 6px 18px rgba(0,0,0,.35)
-    }
-    .blur .avatar{filter: blur(8px)}
-    .fields{flex:1}
-    .name{font-weight:800;font-size:18px}
-    .name.initials .full{display:none}
-    .name.initials .abbr{display:inline}
-    .name .abbr{display:none}
-
-    /* schedule */
-    .sched{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
-    .block{
-      padding:10px;border-radius:10px;text-align:center;
-      border:1px solid rgba(255,255,255,.08);cursor:pointer;
-      background:rgba(255,255,255,.03);font-size:13px
-    }
-    .block.active{
-      background:linear-gradient(90deg,var(--peach),var(--peach-2));
-      color:#1C2D5A;font-weight:800;border-color:transparent
-    }
-
-    /* matches */
-    .matches{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-    @media(max-width:640px){ .matches{grid-template-columns:1fr} }
-    .card-match{border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.02);position:relative}
-    .photo{height:210px;background:#ccc url('https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=600&auto=format&fit=crop') center/cover no-repeat}
-    .blur .photo{filter: blur(10px)}
-    .content{padding:12px}
-    .btns{display:flex;gap:8px}
-    .btn{flex:1;border:none;border-radius:10px;padding:10px;font-weight:800;cursor:pointer;font-size:13px}
-    .like{background:linear-gradient(90deg,var(--peach),var(--peach-2));color:#1C2D5A}
-    .pass{background:transparent;border:1px solid rgba(255,255,255,.15);color:#fff}
-    .reveal{display:none}
-
-    .save{width:100%;margin-top:10px;border:none;border-radius:999px;padding:12px;background:linear-gradient(90deg,var(--peach),var(--peach-2));color:#1C2D5A;font-weight:900;cursor:pointer}
-    .note{color:var(--muted);font-size:13px;margin-top:6px}
-
-    /* metrics bar */
-    .metrics{
+    .shell{
+      max-width:1100px;
+      margin:0 auto;
+      padding:16px clamp(14px,4vw,24px) 28px;
+      min-height:100vh;
       display:flex;
-      justify-content:flex-end;
+      flex-direction:column;
+      gap:18px;
+    }
+
+    /* ===== HEADER ===== */
+    header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:8px 4px 12px;
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+    .brand-link{
+      text-decoration:none;
+      color:inherit;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+    .logo{
+      width:40px;height:40px;border-radius:10px;
+      background:linear-gradient(135deg,var(--peach),var(--peach-2));
+      display:grid;place-items:center;
+      box-shadow:0 6px 18px rgba(255,183,162,.14);
+      flex-shrink:0;
+    }
+    .logo svg{width:20px;height:20px;fill:#fff}
+    .title{
+      font-weight:800;letter-spacing:.2px;font-size:18px;
+    }
+    .tagline{
+      font-size:12px;color:var(--muted);opacity:.9;
+    }
+
+    .header-right{
+      display:flex;
       align-items:center;
       gap:8px;
-      margin-bottom:4px;
       font-size:12px;
       color:var(--muted);
     }
-    .badge{
-      padding:4px 10px;
+    .pill-small{
+      padding:5px 9px;
       border-radius:999px;
       border:1px solid rgba(255,255,255,.12);
-      background:rgba(255,255,255,.03);
+      background:rgba(255,255,255,.04);
+      font-size:11px;
+      white-space:nowrap;
+    }
+
+    /* ===== LAYOUT ===== */
+    .layout{
+      display:grid;
+      grid-template-columns: minmax(0,1.05fr) minmax(0,.95fr);
+      gap:18px;
+      margin-top:4px;
+    }
+    @media(max-width:880px){
+      .layout{
+        grid-template-columns:1fr;
+      }
+    }
+
+    .panel{
+      background:linear-gradient(180deg,var(--navy-2),rgba(35,54,110,.9));
+      border-radius:16px;
+      padding:16px 16px 18px;
+      border:1px solid rgba(255,255,255,.08);
+      box-shadow:0 18px 40px rgba(0,0,0,.35);
+    }
+
+    /* ===== LEFT: SETTINGS ===== */
+    .panel h2{
+      margin:0 0 6px;font-size:17px;
+    }
+    .panel p.sub{
+      margin:0 0 10px;
       font-size:12px;
+      color:var(--muted);
     }
 
-    /* modal */
-    .modal{
-      position:fixed;inset:0;background:rgba(0,0,0,.45);
-      display:none;align-items:center;justify-content:center;
-      padding:16px;z-index:50
-    }
-    .modal.active{display:flex}
-    .modal .box{
-      background:#fff;color:#222;border-radius:16px;
-      max-width:440px;width:100%;padding:18px
-    }
-    .box h4{margin:0 0 8px}
-    .box .row{margin-top:8px;flex-wrap:wrap}
-    .box .row label{color:#444;margin:4px 0}
-    .box .submit{margin-top:12px}
-    #fb_status{margin-top:6px;color:#666;font-weight:700;min-height:1.2em;font-size:13px}
-
-    .vibe-row{
-      margin-top:10px;
-    }
-    .vibe-row span.label{
-      font-size:13px;
-      color:#555;
-      display:inline-block;
-      margin-bottom:4px;
-    }
-    .vibe-scale{
+    .profile-row{
       display:flex;
+      gap:12px;
+      align-items:flex-start;
+      margin-top:4px;
+      margin-bottom:10px;
+    }
+    .avatar{
+      width:74px;height:74px;border-radius:14px;
+      background:#d9d9d9 url('https://images.unsplash.com/photo-1527980965255-d3b416303d12?q=80&w=400&auto=format&fit=crop') center/cover no-repeat;
+      box-shadow:0 6px 18px rgba(0,0,0,.35);
+      flex-shrink:0;
+    }
+    .blur .avatar{filter:blur(8px);}
+    .fields{flex:1;min-width:0;}
+    .name-line{
+      font-weight:800;font-size:18px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+    }
+    .name-line.initials .full{display:none;}
+    .name-line.initials .abbr{display:inline;}
+    .name-line .abbr{display:none;}
+    .chips{
+      display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;
+      font-size:11px;color:var(--muted);
+    }
+    .chip{
+      padding:4px 8px;border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.03);
+    }
+
+    label{
+      display:block;
+      font-size:12px;
+      color:var(--muted);
+      margin:10px 0 4px;
+      font-weight:600;
+    }
+    input,select,textarea{
+      width:100%;
+      padding:10px 12px;
+      border-radius:10px;
+      border:1px solid rgba(255,255,255,.1);
+      background:rgba(255,255,255,.04);
+      color:#fff;
+      font-size:14px;
+      outline:none;
+    }
+    textarea{min-height:70px;resize:vertical;}
+    input::placeholder,textarea::placeholder{
+      color:rgba(255,255,255,.55);
+    }
+    input:focus,select:focus,textarea:focus{
+      box-shadow:0 6px 18px rgba(35,54,110,.35);
+      border-color:rgba(255,183,162,.5);
+    }
+
+    .row{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px;}
+    .switch{
+      display:flex;align-items:center;gap:8px;
+      padding:8px 10px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,.1);
+      background:rgba(255,255,255,.02);
+      font-size:12px;
+      color:var(--muted);
+      flex:1 1 160px;
+    }
+    .switch input{width:auto;margin:0;}
+
+    .mode-row{
+      display:flex;gap:8px;margin-top:6px;flex-wrap:wrap;
+    }
+    .pill{
+      display:inline-flex;
       align-items:center;
       gap:6px;
-    }
-    .vibe-scale input[type="range"]{
-      flex:1;
-    }
-    .vibe-hint{
+      padding:7px 11px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.1);
+      background:rgba(255,255,255,.02);
+      cursor:pointer;
       font-size:12px;
-      color:#777;
-      min-width:80px;
-      text-align:right;
+      color:var(--muted);
+    }
+    .pill span.icon{font-size:13px;}
+    .pill.active{
+      background:linear-gradient(90deg,var(--peach),var(--peach-2));
+      color:#1C2D5A;
+      border-color:transparent;
+      font-weight:800;
     }
 
-    @media(max-width:600px){
-      h1{font-size:22px}
+    .sched-days{
+      display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 6px;
+    }
+    .sched-day-pill{
+      padding:5px 10px;border-radius:999px;
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(255,255,255,.02);
+      font-size:12px;cursor:pointer;
+      color:var(--muted);
+    }
+    .sched-day-pill.active{
+      background:rgba(255,255,255,.12);
+      color:#fff;
+    }
+
+    .sched{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:8px;
+      font-size:11px;
+    }
+    @media(max-width:640px){
+      .sched{grid-template-columns:repeat(3,1fr);}
+    }
+    .block{
+      padding:9px 6px;
+      border-radius:10px;
+      text-align:center;
+      border:1px solid rgba(255,255,255,.1);
+      background:rgba(255,255,255,.03);
+      cursor:pointer;
+      color:var(--muted);
+    }
+    .block.active{
+      background:linear-gradient(90deg,var(--peach),var(--peach-2));
+      color:#1C2D5A;
+      font-weight:800;
+      border-color:transparent;
+    }
+
+    .save{
+      width:100%;margin-top:10px;
+      border:none;border-radius:999px;
+      padding:11px;
+      background:linear-gradient(90deg,var(--peach),var(--peach-2));
+      color:#1C2D5A;font-weight:900;
+      cursor:pointer;font-size:14px;
+      box-shadow:0 12px 32px rgba(0,0,0,.35);
+    }
+    .note{
+      color:var(--muted);
+      font-size:11px;
+      margin-top:4px;
+    }
+
+    /* ===== RIGHT: MATCHES ===== */
+    .panel-right-header{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:10px;
+      margin-bottom:8px;
+    }
+    .panel-right-header p.sub{
+      margin:0;
+      max-width:75%;
+    }
+    .demo-badge{
+      font-size:11px;
+      padding:4px 9px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.02);
+      color:var(--muted);
+    }
+
+    .matches{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      margin-top:4px;
+      max-height:420px;
+      overflow:auto;
+      padding-right:4px;
+    }
+    .card-match{
+      border-radius:14px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.06);
+      background:rgba(255,255,255,.02);
+      display:flex;
+      flex-direction:column;
+    }
+    .photo{
+      height:190px;
+      background:#ccc url('https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=600&auto=format&fit=crop') center/cover no-repeat;
+    }
+    .blur .photo{filter:blur(10px);}
+    .content{
+      padding:11px 12px 12px;
+      font-size:12px;
+    }
+    .content .top-line{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:8px;
+      margin-bottom:4px;
+    }
+    .match-name{
+      font-weight:800;font-size:14px;
+    }
+    .match-meta{
+      font-size:11px;color:var(--muted);
+    }
+    .vibe-tags{
+      display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;font-size:11px;color:var(--muted);
+    }
+    .vibe-tags span{
+      padding:3px 7px;border-radius:999px;
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(255,255,255,.02);
+    }
+
+    .btns{
+      display:flex;gap:8px;margin-top:10px;
+    }
+    .btn{
+      flex:1;border:none;border-radius:10px;padding:9px;
+      font-weight:800;cursor:pointer;font-size:13px;
+    }
+    .like{
+      background:linear-gradient(90deg,var(--peach),var(--peach-2));color:#1C2D5A;
+    }
+    .pass{
+      background:transparent;border:1px solid rgba(255,255,255,.18);color:#fff;
+    }
+    .reveal{
+      display:none;
+      margin-top:8px;
+      border:none;border-radius:10px;
+      padding:8px;
+      font-weight:700;
+      background:#fff;color:#1C2D5A;
+      width:100%;
+      font-size:12px;
+      cursor:pointer;
+    }
+    .meet{
+      margin-top:6px;
+      border:none;border-radius:10px;
+      padding:7px;
+      background:transparent;
+      border:1px dashed rgba(255,255,255,.3);
+      color:var(--muted);
+      width:100%;
+      font-size:11px;
+      cursor:pointer;
+    }
+
+    .help-text{
+      font-size:11px;color:var(--muted);margin-top:8px;
+    }
+
+    /* ===== MODAL ===== */
+    .modal{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.55);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:16px;
+      z-index:50;
+    }
+    .modal.active{display:flex;}
+    .modal .box{
+      background:#fff;color:#222;
+      border-radius:16px;
+      max-width:460px;width:100%;
+      padding:18px 18px 16px;
+      font-size:13px;
+    }
+    .box h4{
+      margin:0 0 4px;
+      font-size:16px;
+    }
+    .box p{
+      margin:0 0 8px;font-size:12px;color:#555;
+    }
+    .box small{
+      font-size:11px;color:#777;
+    }
+    .section-label{
+      margin-top:8px;
+      font-weight:700;
+      font-size:12px;
+      color:#333;
+    }
+    .fb-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-top:6px;
+    }
+    .fb-chip{
+      border-radius:999px;
+      border:1px solid #ddd;
+      background:#f7f7f7;
+      padding:6px 10px;
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      cursor:pointer;
+      font-size:12px;
+      color:#444;
+    }
+    .fb-chip input{
+      margin:0;
+    }
+
+    #fb_notes,#fb_email{
+      width:100%;
+      padding:9px 10px;
+      border-radius:10px;
+      border:1px solid #ddd;
+      font-size:13px;
+      margin-top:4px;
+    }
+    #fb_notes{min-height:70px;resize:vertical;}
+    #fb_email{background:#f7f7f7;}
+    #fb_notes:focus,#fb_email:focus{
+      outline:none;
+      border-color:#FFB7A2;
+      box-shadow:0 0 0 1px rgba(255,183,162,.4);
+    }
+
+    .box .submit{
+      margin-top:10px;
+      width:100%;
+      border:none;
+      border-radius:999px;
+      padding:10px 12px;
+      font-weight:800;
+      font-size:13px;
+      cursor:pointer;
+      background:linear-gradient(90deg,#FFB7A2,#FF9E8C);
+      color:#1C2D5A;
+    }
+    #fb_status{
+      margin-top:6px;color:#666;font-weight:700;font-size:11px;min-height:1.3em;
     }
   </style>
 </head>
 <body>
-  <div class="wrap">
+  <div class="shell">
     <header>
-      <div class="brand">
-        <div class="logo">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.33-4.35-9.5-6.17C-0.02 11.03 3 5 7.5 6.5 9.07 7.07 10 9 12 11c2-2 2.93-3.93 4.5-4.5C21 5 24 11.03 21.5 14.83 19.33 16.65 12 21 12 21z" fill="#fff"/></svg>
+      <a href="index.html" class="brand-link">
+        <div class="brand">
+          <div class="logo">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 21s-7.33-4.35-9.5-6.17C-0.02 11.03 3 5 7.5 6.5 9.07 7.07 10 9 12 11c2-2 2.93-3.93 4.5-4.5C21 5 24 11.03 21.5 14.83 19.33 16.65 12 21 12 21z"/>
+            </svg>
+          </div>
+          <div>
+            <div class="title">CampusCrush — Beta</div>
+            <div class="tagline">Incognito by default. Campus-first.</div>
+          </div>
         </div>
-        <div class="title">CampusCrush — Beta</div>
-      </div>
-      <div class="nav">
-        <a class="ghost" href="index.html">← Back</a>
+      </a>
+      <div class="header-right">
+        <span class="pill-small">Mode preview only · no real data</span>
       </div>
     </header>
 
-    <h1>Privacy-first matching demo</h1>
-    <p class="lead">Incognito by default. Cross-campus visibility. Study/Dating modes. A light schedule and vibes to improve matches.</p>
-
-    <div class="grid">
+    <div class="layout">
       <!-- LEFT: Settings -->
-      <section class="card" id="settings">
-        <h3>Profile & visibility</h3>
+      <section class="panel" id="settings">
+        <h2>Profile & visibility</h2>
+        <p class="sub">Tweak these and see how matches react. Nothing is saved to a server — it’s just your browser.</p>
 
-        <div class="profile" id="preview">
+        <div class="profile-row blur" id="preview">
           <div class="avatar"></div>
           <div class="fields">
-            <div class="name" id="nameDisplay">
+            <div class="name-line" id="nameDisplay">
               <span class="full">Alex Chen</span>
               <span class="abbr">A. C.</span>
             </div>
-            <div class="note" id="modeNote">Mode: Dating</div>
+            <div class="chips">
+              <span class="chip" id="chipMode">Mode: Dating</span>
+              <span class="chip">NYC campuses</span>
+            </div>
             <div class="note" id="interestPreview">Your tags: add a few so matches feel less random.</div>
           </div>
         </div>
 
-        <div class="row" style="margin-top:10px">
+        <div class="row">
           <div class="switch">
             <input type="checkbox" id="incognito" checked />
             <label for="incognito">Incognito (blur + initials until mutual like)</label>
           </div>
           <div class="switch">
             <input type="checkbox" id="crosscampus" />
-            <label for="crosscampus">Cross-campus visibility (match nearby schools)</label>
+            <label for="crosscampus">Cross-campus visibility (nearby schools)</label>
           </div>
         </div>
 
@@ -236,34 +527,42 @@
         </select>
 
         <label>Mode</label>
-        <div class="row" id="modes" role="group" aria-label="Interaction mode">
-          <button type="button" class="pill active" data-mode="dating" aria-pressed="true">Dating</button>
-          <button type="button" class="pill" data-mode="study" aria-pressed="false">Study</button>
-          <button type="button" class="pill" data-mode="group" aria-pressed="false">Group / Double Date</button>
+        <div class="mode-row" id="modes">
+          <button class="pill active" data-mode="dating" type="button" aria-pressed="true">
+            <span class="icon">💘</span><span>Dating</span>
+          </button>
+          <button class="pill" data-mode="study" type="button" aria-pressed="false">
+            <span class="icon">📚</span><span>Study</span>
+          </button>
+          <button class="pill" data-mode="group" type="button" aria-pressed="false">
+            <span class="icon">👯‍♀️</span><span>Group / Double</span>
+          </button>
         </div>
 
         <label style="margin-top:12px;">Interests / vibes (pick a few)</label>
         <div class="row" id="interests" aria-label="Interest tags">
-          <button type="button" class="pill" data-interest="International">International student</button>
-          <button type="button" class="pill" data-interest="Art/Design">Art / design kid</button>
-          <button type="button" class="pill" data-interest="CS/Tech">CS / tech</button>
-          <button type="button" class="pill" data-interest="Business/Finance">Business / finance</button>
-          <button type="button" class="pill" data-interest="Night owl">Night owl</button>
-          <button type="button" class="pill" data-interest="Early bird">Morning person</button>
-          <button type="button" class="pill" data-interest="NYC foodie">NYC foodie</button>
-          <button type="button" class="pill" data-interest="Chill hangs">Chill hangs</button>
+          <button type="button" class="pill" data-interest="International">🌍 International student</button>
+          <button type="button" class="pill" data-interest="Art/Design">🎨 Art / design kid</button>
+          <button type="button" class="pill" data-interest="CS/Tech">💻 CS / tech</button>
+          <button type="button" class="pill" data-interest="Business/Finance">💸 Business / finance</button>
+          <button type="button" class="pill" data-interest="Night owl">🌙 Night owl</button>
+          <button type="button" class="pill" data-interest="Early bird">☀️ Morning person</button>
+          <button type="button" class="pill" data-interest="NYC foodie">🧋 NYC foodie</button>
+          <button type="button" class="pill" data-interest="Chill hangs">🧸 Chill hangs</button>
         </div>
 
-        <h3 style="margin-top:14px">Schedule (helps smarter matches)</h3>
-        <div class="row" style="margin-bottom:6px">
-          <div class="pill" data-day="Mon">Mon</div>
-          <div class="pill" data-day="Tue">Tue</div>
-          <div class="pill" data-day="Wed">Wed</div>
-          <div class="pill" data-day="Thu">Thu</div>
-          <div class="pill" data-day="Fri">Fri</div>
+        <h2 style="margin-top:16px;font-size:15px;">Schedule (helps smarter matches)</h2>
+        <p class="sub">Pick your free blocks. In the real app we’d match people when they’re actually free.</p>
+
+        <div class="sched-days" id="schedDays">
+          <button type="button" class="sched-day-pill" data-day="Mon">Mon</button>
+          <button type="button" class="sched-day-pill" data-day="Tue">Tue</button>
+          <button type="button" class="sched-day-pill" data-day="Wed">Wed</button>
+          <button type="button" class="sched-day-pill" data-day="Thu">Thu</button>
+          <button type="button" class="sched-day-pill" data-day="Fri">Fri</button>
         </div>
+
         <div class="sched" id="sched">
-          <!-- each is Morning / Afternoon / Evening toggle -->
           <div class="block" data-slot="Mon-Morning">Mon AM</div>
           <div class="block" data-slot="Mon-Afternoon">Mon PM</div>
           <div class="block" data-slot="Mon-Evening">Mon Eve</div>
@@ -282,49 +581,64 @@
         </div>
 
         <button class="save" id="save">Save settings</button>
-        <div class="note">Settings are saved locally (no account needed). Toggle Incognito anytime.</div>
+        <div class="note">Settings are saved locally (no login needed). Incognito only affects this demo, not real people.</div>
       </section>
 
       <!-- RIGHT: Matches demo -->
-      <section class="card">
-        <div class="metrics">
-          <span class="badge" id="likesMetric">Likes sent: 0</span>
+      <section class="panel">
+        <div class="panel-right-header">
+          <div>
+            <h2>Demo matches</h2>
+            <p class="sub">See how “Incognito + vibes + schedule” could feel in a real app. Click “Mark as met” to test feedback.</p>
+          </div>
+          <div class="demo-badge">Prototype · static data</div>
         </div>
-        <h3>Demo matches</h3>
-        <p class="note">When Incognito is on, photos blur and names show initials until mutual like. This demo simulates the flow — no real profiles yet.</p>
 
         <div class="matches" id="matches">
-          <!-- example card -->
-          <div class="card-match blur" data-id="m1" data-name="Sam R.">
+          <div class="card-match blur" data-id="m1" data-name="Sam Rivera">
             <div class="photo"></div>
             <div class="content">
-              <div class="name" style="font-weight:800">Sam R.</div>
-              <div class="note">NYU · Evening free Tue/Thu · Night owl</div>
-              <div class="btns" style="margin-top:10px">
-                <button class="btn pass">Pass</button>
-                <button class="btn like">Like</button>
+              <div class="top-line">
+                <div class="match-name">Sam R.</div>
+                <div class="match-meta">NYU · Tue/Thu evenings free</div>
               </div>
-              <button class="btn reveal" style="margin-top:8px;background:#fff;color:#1C2D5A">Reveal profile</button>
-              <button class="btn meet" style="margin-top:8px;background:transparent;border:1px solid rgba(255,255,255,.2);color:#fff">Mark as met</button>
+              <div class="vibe-tags">
+                <span>🌙 Night owl</span>
+                <span>📚 Study/dating mix</span>
+              </div>
+              <div class="btns">
+                <button class="btn pass" type="button">Pass</button>
+                <button class="btn like" type="button">Like</button>
+              </div>
+              <button class="reveal" type="button">Mutual! Reveal</button>
+              <button class="meet" type="button">Mark as met (demo)</button>
             </div>
           </div>
 
-          <div class="card-match blur" data-id="m2" data-name="J. Lee">
+          <div class="card-match blur" data-id="m2" data-name="Jamie Lee">
             <div class="photo" style="background-image:url('https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=600&auto=format&fit=crop')"></div>
             <div class="content">
-              <div class="name" style="font-weight:800">J. Lee</div>
-              <div class="note">Parsons · Afternoon free M/W · Art / design kid</div>
-              <div class="btns" style="margin-top:10px">
-                <button class="btn pass">Pass</button>
-                <button class="btn like">Like</button>
+              <div class="top-line">
+                <div class="match-name">J. Lee</div>
+                <div class="match-meta">Parsons · M/W afternoons</div>
               </div>
-              <button class="btn reveal" style="margin-top:8px;background:#fff;color:#1C2D5A">Reveal profile</button>
-              <button class="btn meet" style="margin-top:8px;background:transparent;border:1px solid rgba(255,255,255,.2);color:#fff">Mark as met</button>
+              <div class="vibe-tags">
+                <span>🎨 Studio kid</span>
+                <span>🧸 Chill hangs</span>
+              </div>
+              <div class="btns">
+                <button class="btn pass" type="button">Pass</button>
+                <button class="btn like" type="button">Like</button>
+              </div>
+              <button class="reveal" type="button">Mutual! Reveal</button>
+              <button class="meet" type="button">Mark as met (demo)</button>
             </div>
           </div>
         </div>
 
-        <div class="note" style="margin-top:10px">In production, “Reveal” would only appear after a mutual like — and your feedback would quietly help keep the community safe.</div>
+        <div class="help-text">
+          In production, “Reveal” would only show after a real mutual like, and feedback would plug into safety tools — never shown to the other person.
+        </div>
       </section>
     </div>
   </div>
@@ -332,32 +646,39 @@
   <!-- Private feedback modal -->
   <div class="modal" id="feedbackModal" aria-hidden="true">
     <div class="box">
-      <h4>Private feedback (never public)</h4>
-      <p style="margin:0;color:#555;font-size:13px">Used only to keep the community safe and improve matching — the other person never sees this.</p>
+      <h4>Post-meet feedback (private)</h4>
+      <p>This is never shown to the other person — it’s only for safety and pattern spotting.</p>
 
-      <div class="row">
-        <label><input type="checkbox" id="fb_safe"> I felt safe / comfortable</label>
-        <label><input type="checkbox" id="fb_respect"> They were respectful</label>
-        <label><input type="checkbox" id="fb_again"> I’d be happy to meet again</label>
-        <label><input type="checkbox" id="fb_on_time"> They showed up / didn’t flake</label>
+      <div id="fb_targetLabel" style="font-size:12px;color:#444;margin-bottom:4px;"></div>
+
+      <div class="section-label">Positive check-ins (optional)</div>
+      <div class="fb-row">
+        <label class="fb-chip"><input type="checkbox" id="fb_safe"> I felt safe</label>
+        <label class="fb-chip"><input type="checkbox" id="fb_respect"> They were respectful</label>
+        <label class="fb-chip"><input type="checkbox" id="fb_again"> I’d meet again</label>
+        <label class="fb-chip"><input type="checkbox" id="fb_ontime"> They showed up on time</label>
       </div>
 
-      <div class="vibe-row">
-        <span class="label">Overall vibe</span>
-        <div class="vibe-scale">
-          <input id="fb_vibe" type="range" min="1" max="5" step="1" value="3">
-          <div class="vibe-hint" id="fb_vibe_hint">3 · neutral</div>
-        </div>
+      <div class="section-label" style="margin-top:10px;">Red flags (private “ugly” feedback)</div>
+      <p style="margin:2px 0 6px;color:#666;font-size:11px;">Only staff sees this. It’s here for honest, blunt reports — not for shaming looks or background.</p>
+      <div class="fb-row">
+        <label class="fb-chip"><input type="checkbox" id="fb_rude"> Rude / dismissive</label>
+        <label class="fb-chip"><input type="checkbox" id="fb_uncomfortable"> Made me feel unsafe / uncomfortable</label>
+        <label class="fb-chip"><input type="checkbox" id="fb_noshow"> Didn’t show / very late</label>
+        <label class="fb-chip"><input type="checkbox" id="fb_catfish"> Looked very different from profile</label>
+        <label class="fb-chip"><input type="checkbox" id="fb_intox"> Seemed intoxicated / not okay</label>
+        <label class="fb-chip"><input type="checkbox" id="fb_pushy"> Too pushy / ignored boundaries</label>
       </div>
 
-      <label for="fb_notes" style="margin-top:8px">Notes (optional, private)</label>
-      <textarea id="fb_notes" placeholder="Anything we should know? e.g. good communicator, felt off, great match" style="color:#222;background:#f7f7f7"></textarea>
+      <label for="fb_notes" class="section-label" style="margin-top:10px;">Notes (optional)</label>
+      <textarea id="fb_notes" placeholder="Anything we should know? Dates, places, examples help."></textarea>
 
-      <label for="fb_email" style="margin-top:8px">Your .edu email (optional, for follow-up)</label>
-      <input id="fb_email" placeholder="you@college.edu" style="color:#222;background:#f7f7f7"/>
+      <label for="fb_email" class="section-label" style="margin-top:8px;">Your .edu email (optional, for follow-up)</label>
+      <input id="fb_email" placeholder="you@college.edu"/>
 
-      <button class="save submit" id="fb_send">Send feedback</button>
+      <button class="submit" id="fb_send">Send feedback</button>
       <div id="fb_status"></div>
+      <div style="margin-top:4px;"><small>We don’t share this with the other person. Ever.</small></div>
     </div>
   </div>
 
@@ -372,23 +693,17 @@
       mode: 'dating',
       schedule: new Set(), // e.g., "Mon-Morning"
       interests: new Set(), // e.g., "International"
-      likesSent: 0,
     };
 
     // restore from localStorage
     (function restore(){
       try{
         const saved = JSON.parse(localStorage.getItem('ccrush-beta')||'{}');
-        if (saved && typeof saved === 'object') {
-          state.incognito = saved.incognito ?? state.incognito;
-          state.crosscampus = saved.crosscampus ?? state.crosscampus;
-          state.name = saved.name || state.name;
-          state.mode = saved.mode || state.mode;
-          state.likesSent = typeof saved.likesSent === 'number' ? saved.likesSent : 0;
-          state.schedule = new Set(saved.schedule || []);
-          state.interests = new Set(saved.interests || []);
-        }
-      }catch(e){}
+        Object.assign(state, saved, {
+          schedule: new Set(saved.schedule || []),
+          interests: new Set(saved.interests || []),
+        });
+      }catch{}
     })();
 
     // elements
@@ -398,65 +713,49 @@
     const nameDisplay = document.getElementById('nameDisplay');
     const preview = document.getElementById('preview');
     const modes = document.getElementById('modes');
-    const modeNote = document.getElementById('modeNote');
+    const chipMode = document.getElementById('chipMode');
     const sched = document.getElementById('sched');
+    const schedDays = document.getElementById('schedDays');
     const saveBtn = document.getElementById('save');
     const interestsEl = document.getElementById('interests');
     const interestPreview = document.getElementById('interestPreview');
-    const likesMetric = document.getElementById('likesMetric');
 
     // apply UI from state
     function applyUI(){
       incognitoEl.checked = state.incognito;
       crossEl.checked = state.crosscampus;
       fullEl.value = state.name;
-      nameDisplay.querySelector('.full').textContent = state.name;
-      nameDisplay.querySelector('.abbr').textContent = getInitials(state.name);
+      nameDisplay.querySelector('.full').textContent = state.name || 'You';
+      nameDisplay.querySelector('.abbr').textContent = getInitials(state.name || 'You');
 
       preview.classList.toggle('blur', state.incognito);
       nameDisplay.classList.toggle('initials', state.incognito);
 
-      modeNote.textContent = 'Mode: ' + (state.mode === 'study' ? 'Study' : state.mode === 'group' ? 'Group' : 'Dating');
+      const modeLabel = state.mode === 'study' ? 'Study' : state.mode === 'group' ? 'Group' : 'Dating';
+      chipMode.textContent = 'Mode: ' + modeLabel;
 
-      // schedule blocks
-      Array.from(sched.querySelectorAll('.block')).forEach(b=>{
-        const key = b.dataset.slot;
-        b.classList.toggle('active', state.schedule.has(key));
-      });
-
-      // day pills (all on/off)
-      document.querySelectorAll('[data-day]').forEach(pill=>{
-        const day = pill.dataset.day;
-        const blocks = Array.from(sched.querySelectorAll('.block'))
-          .filter(b=>b.dataset.slot.startsWith(day + '-'));
-        const allOn = blocks.length && blocks.every(b=>state.schedule.has(b.dataset.slot));
-        pill.classList.toggle('active', allOn);
-      });
-
-      // matches blur toggle + names
-      document.querySelectorAll('.card-match').forEach(card=>{
-        card.classList.toggle('blur', state.incognito);
-        const nameEl = card.querySelector('.name');
-        if(nameEl){
-          const fullName = card.dataset.name || nameEl.dataset.full || nameEl.textContent.trim();
-          nameEl.dataset.full = fullName;
-          const initials = getInitials(fullName);
-          if(state.incognito){
-            nameEl.textContent = initials;
-          }else{
-            nameEl.textContent = fullName;
-          }
-        }
-      });
-
-      // mode pills aria
+      // mode pills + aria
       modes.querySelectorAll('.pill').forEach(p=>{
         const active = p.dataset.mode === state.mode;
         p.classList.toggle('active', active);
         p.setAttribute('aria-pressed', active ? 'true' : 'false');
       });
 
-      // interest pills state
+      // sched blocks
+      Array.from(sched.querySelectorAll('.block')).forEach(b=>{
+        const key = b.dataset.slot;
+        b.classList.toggle('active', state.schedule.has(key));
+      });
+
+      // day pills: active if all slots of that day are set
+      schedDays.querySelectorAll('.sched-day-pill').forEach(p=>{
+        const day = p.dataset.day;
+        const keysForDay = Array.from(sched.querySelectorAll(`.block[data-slot^="${day}-"]`)).map(b=>b.dataset.slot);
+        const allOn = keysForDay.length && keysForDay.every(k=>state.schedule.has(k));
+        p.classList.toggle('active', allOn);
+      });
+
+      // interest pills
       if (interestsEl) {
         interestsEl.querySelectorAll('.pill').forEach(p=>{
           const key = p.dataset.interest;
@@ -465,7 +764,6 @@
         });
       }
 
-      // interest preview text
       if (interestPreview) {
         if (!state.interests || state.interests.size === 0) {
           interestPreview.textContent = 'Your tags: add a few so matches feel less random.';
@@ -474,10 +772,21 @@
         }
       }
 
-      // likes metric
-      if (likesMetric) {
-        likesMetric.textContent = `Likes sent: ${state.likesSent || 0}`;
-      }
+      // matches blur + name handling
+      document.querySelectorAll('.card-match').forEach(card=>{
+        card.classList.toggle('blur', state.incognito);
+        const nameEl = card.querySelector('.match-name');
+        if(nameEl){
+          const trueName = card.dataset.name || nameEl.textContent.trim();
+          if(state.incognito){
+            const initials = getInitials(trueName);
+            nameEl.dataset.full = trueName;
+            nameEl.textContent = initials;
+          }else{
+            nameEl.textContent = nameEl.dataset.full || trueName;
+          }
+        }
+      });
     }
 
     function getInitials(name){
@@ -493,17 +802,11 @@
     }
 
     // wire inputs
-    incognitoEl.addEventListener('change', ()=>{
-      state.incognito = incognitoEl.checked;
-      applyUI(); persist();
-    });
-    crossEl.addEventListener('change', ()=>{
-      state.crosscampus = crossEl.checked;
-      persist();
-    });
+    incognitoEl.addEventListener('change', ()=>{ state.incognito = incognitoEl.checked; applyUI(); persist(); });
+    crossEl.addEventListener('change', ()=>{ state.crosscampus = crossEl.checked; persist(); });
 
     fullEl.addEventListener('input', ()=>{
-      state.name = fullEl.value || 'You';
+      state.name = fullEl.value.trim() || 'You';
       applyUI(); persist();
     });
 
@@ -512,29 +815,7 @@
       if(!pill) return;
       const m = pill.dataset.mode;
       if(!m) return;
-      state.mode = m; applyUI(); persist();
-    });
-
-    // day pill: toggle all blocks of that day
-    document.querySelectorAll('[data-day]').forEach(pill=>{
-      pill.addEventListener('click', ()=>{
-        const day = pill.dataset.day;
-        const blocks = Array.from(sched.querySelectorAll('.block'))
-          .filter(b=>b.dataset.slot.startsWith(day + '-'));
-        const allOn = blocks.length && blocks.every(b=>state.schedule.has(b.dataset.slot));
-        if(allOn){
-          blocks.forEach(b=>state.schedule.delete(b.dataset.slot));
-        }else{
-          blocks.forEach(b=>state.schedule.add(b.dataset.slot));
-        }
-        applyUI(); persist();
-      });
-    });
-
-    sched.addEventListener('click', (e)=>{
-      const b = e.target.closest('.block'); if(!b) return;
-      const key = b.dataset.slot;
-      if(state.schedule.has(key)) state.schedule.delete(key); else state.schedule.add(key);
+      state.mode = m;
       applyUI(); persist();
     });
 
@@ -545,25 +826,48 @@
         if(!pill) return;
         const key = pill.dataset.interest;
         if(!key) return;
-
-        if(state.interests.has(key)) {
-          state.interests.delete(key);
-        } else {
-          state.interests.add(key);
-        }
-        applyUI();
-        persist();
+        if(state.interests.has(key)) state.interests.delete(key);
+        else state.interests.add(key);
+        applyUI(); persist();
       });
     }
 
-    // Save button (visual only)
+    // sched slots
+    sched.addEventListener('click', (e)=>{
+      const b = e.target.closest('.block'); if(!b) return;
+      const key = b.dataset.slot;
+      if(state.schedule.has(key)) state.schedule.delete(key); else state.schedule.add(key);
+      applyUI(); persist();
+    });
+
+    // day-level toggle
+    schedDays.addEventListener('click', (e)=>{
+      const d = e.target.closest('.sched-day-pill');
+      if(!d) return;
+      const day = d.dataset.day;
+      const blocksForDay = Array.from(sched.querySelectorAll(`.block[data-slot^="${day}-"]`));
+      const keysForDay = blocksForDay.map(b=>b.dataset.slot);
+      const allOn = keysForDay.length && keysForDay.every(k=>state.schedule.has(k));
+
+      if(allOn){
+        keysForDay.forEach(k=>state.schedule.delete(k));
+      }else{
+        keysForDay.forEach(k=>state.schedule.add(k));
+      }
+      applyUI(); persist();
+    });
+
+    // Save button
     saveBtn.addEventListener('click', ()=>{
       applyUI();
+      const original = saveBtn.textContent;
       saveBtn.textContent = 'Saved ✓';
-      setTimeout(()=> saveBtn.textContent='Save settings', 1200);
+      setTimeout(()=> saveBtn.textContent = original, 1200);
     });
 
     // demo match buttons
+    let feedbackTarget = null;
+
     document.getElementById('matches').addEventListener('click', (e)=>{
       const card = e.target.closest('.card-match');
       if(!card) return;
@@ -573,62 +877,51 @@
         return;
       }
       if(e.target.classList.contains('like')){
-        // increment likes
-        state.likesSent = (state.likesSent || 0) + 1;
-        persist();
-        applyUI();
-
-        // simulate 50% mutual
         const mutual = Math.random() > .5;
         if(mutual){
           const rev = card.querySelector('.reveal');
-          rev.style.display = 'block';
-          rev.textContent = 'Mutual! Reveal';
+          if(rev){
+            rev.style.display = 'block';
+            rev.textContent = 'Mutual! Reveal';
+          }
         }else{
-          e.target.textContent = 'Sent ♥';
-          setTimeout(()=> e.target.textContent='Like', 900);
+          const btn = e.target;
+          const original = btn.textContent;
+          btn.textContent = 'Sent ♥';
+          setTimeout(()=> btn.textContent = original, 900);
         }
         return;
       }
       if(e.target.classList.contains('reveal')){
-        // “reveal” profile – turn off blur for this card
         card.classList.remove('blur');
         e.target.style.display = 'none';
         return;
       }
       if(e.target.classList.contains('meet')){
-        openFeedback();
+        const nameEl = card.querySelector('.match-name');
+        const trueName = card.dataset.name || (nameEl ? nameEl.textContent.trim() : 'Match');
+        feedbackTarget = trueName;
+        openFeedback(trueName);
       }
     });
 
     // EmailJS for feedback (optional)
-    try{
+    try {
       emailjs.init("ulL6vwPV1VYplg_8l");
-    }catch(e){
-      console.error('EmailJS init failed', e);
+    } catch (e) {
+      console.error("EmailJS init error:", e);
     }
 
     // feedback modal
     const modal = document.getElementById('feedbackModal');
     const fbSend = document.getElementById('fb_send');
     const fbStatus = document.getElementById('fb_status');
-    const fbVibe = document.getElementById('fb_vibe');
-    const fbVibeHint = document.getElementById('fb_vibe_hint');
+    const fbTargetLabel = document.getElementById('fb_targetLabel');
 
-    function vibeLabel(val){
-      const v = Number(val);
-      if (v <= 1) return '1 · 🚩 off vibes';
-      if (v === 2) return '2 · not great';
-      if (v === 3) return '3 · neutral';
-      if (v === 4) return '4 · good';
-      return '5 · great vibes';
-    }
-    fbVibeHint.textContent = vibeLabel(fbVibe.value);
-    fbVibe.addEventListener('input', ()=>{
-      fbVibeHint.textContent = vibeLabel(fbVibe.value);
-    });
-
-    function openFeedback(){
+    function openFeedback(targetName){
+      if(fbTargetLabel){
+        fbTargetLabel.textContent = 'For: ' + (targetName || 'this match');
+      }
       modal.classList.add('active');
       modal.setAttribute('aria-hidden','false');
     }
@@ -642,13 +935,34 @@
     });
 
     fbSend.addEventListener('click', ()=>{
-      const safe = document.getElementById('fb_safe').checked ? 'Yes' : 'No';
-      const resp = document.getElementById('fb_respect').checked ? 'Yes' : 'No';
-      const again = document.getElementById('fb_again').checked ? 'Yes' : 'No';
-      const onTime = document.getElementById('fb_on_time').checked ? 'Yes' : 'No';
-      const vibeScore = fbVibe.value;
+      const safe = document.getElementById('fb_safe').checked;
+      const resp = document.getElementById('fb_respect').checked;
+      const again = document.getElementById('fb_again').checked;
+      const ontime = document.getElementById('fb_ontime').checked;
+
+      const rude = document.getElementById('fb_rude').checked;
+      const uncomfortable = document.getElementById('fb_uncomfortable').checked;
+      const noshow = document.getElementById('fb_noshow').checked;
+      const catfish = document.getElementById('fb_catfish').checked;
+      const intox = document.getElementById('fb_intox').checked;
+      const pushy = document.getElementById('fb_pushy').checked;
+
       const notes = document.getElementById('fb_notes').value.trim();
       const email = (document.getElementById('fb_email').value.trim() || 'beta@campuscrush.app');
+
+      const positives = [];
+      if(safe) positives.push('Felt safe');
+      if(resp) positives.push('Respectful');
+      if(again) positives.push('Would meet again');
+      if(ontime) positives.push('On time');
+
+      const negatives = [];
+      if(rude) negatives.push('Rude/dismissive');
+      if(uncomfortable) negatives.push('Unsafe/uncomfortable');
+      if(noshow) negatives.push('No-show/very late');
+      if(catfish) negatives.push('Looked very different from profile');
+      if(intox) negatives.push('Intoxicated/not okay');
+      if(pushy) negatives.push('Too pushy/ignored boundaries');
 
       fbStatus.textContent = 'Sending...';
 
@@ -656,28 +970,34 @@
         from_name: state.name || 'Beta User',
         from_email: email,
         message: `[PRIVATE FEEDBACK]
-Safe: ${safe}
-Respectful: ${resp}
-Meet again: ${again}
-On time: ${onTime}
-Vibe score: ${vibeScore}
+Match: ${feedbackTarget || 'Unknown'}
+Positives: ${positives.join(', ') || 'None'}
+Red flags: ${negatives.join(', ') || 'None'}
 Notes: ${notes}`
       })
       .then(()=>{
         fbStatus.textContent = 'Thanks — received ✅';
         setTimeout(()=>{
-          fbStatus.textContent='';
           closeFeedback();
-        }, 1000);
+          fbStatus.textContent='';
+        }, 900);
+
         // clear checks
         document.getElementById('fb_safe').checked = false;
         document.getElementById('fb_respect').checked = false;
         document.getElementById('fb_again').checked = false;
-        document.getElementById('fb_on_time').checked = false;
+        document.getElementById('fb_ontime').checked = false;
+
+        document.getElementById('fb_rude').checked = false;
+        document.getElementById('fb_uncomfortable').checked = false;
+        document.getElementById('fb_noshow').checked = false;
+        document.getElementById('fb_catfish').checked = false;
+        document.getElementById('fb_intox').checked = false;
+        document.getElementById('fb_pushy').checked = false;
+
         document.getElementById('fb_notes').value = '';
         document.getElementById('fb_email').value = '';
-        fbVibe.value = 3;
-        fbVibeHint.textContent = vibeLabel(3);
+        feedbackTarget = null;
       })
       .catch(()=>{
         fbStatus.textContent = 'Could not send. Try later.';
