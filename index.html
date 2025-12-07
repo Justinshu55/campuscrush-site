@@ -38,14 +38,14 @@
       a.cta.beta { width:100%; justify-content:center; }
     }
 
-    /* ---------- Palette (Navy + Soft Peach) ---------- */
+    /* ---------- Palette ---------- */
     :root{
       --navy: #1C2D5A;
       --navy-2: #23366E;
       --peach: #FFB7A2;
       --peach-2: #FF9E8C;
       --cream: #FBF8F6;
-      --card: #0f2348; /* darker card for subtle contrast */
+      --card: #0f2348;
       --muted: #CBD3E8;
       --white: #ffffff;
       --shadow: 0 10px 30px rgba(28,45,90,0.12);
@@ -65,10 +65,8 @@
       gap:28px;
     }
 
-    /* smooth scroll for anchor jumps */
     html { scroll-behavior: smooth; }
 
-    /* gentle bounce when section is focused */
     @keyframes bounce {
       0%,20%,50%,80%,100% { transform: translateY(0); }
       40% { transform: translateY(-8px); }
@@ -76,7 +74,6 @@
     }
     #signup.bounce { animation: bounce .8s ease; }
 
-    /* ---------- Container ---------- */
     .site {
       width:100%;
       max-width:1100px;
@@ -124,6 +121,7 @@
       padding:8px 14px;border-radius:999px;
       font-weight:600;
       cursor:pointer;
+      font-size:13px;
     }
 
     .cta {
@@ -131,20 +129,20 @@
       color:var(--navy);
       padding:10px 18px;border-radius:999px;border:none;font-weight:700;
       cursor:pointer;box-shadow:var(--shadow);
-      position: relative; z-index: 10; /* ensure clickable */
+      position: relative; z-index: 10;
       text-decoration:none;
       display:inline-flex;
       align-items:center;
       justify-content:center;
       gap:6px;
+      font-size:14px;
     }
 
-    /* ---------- Hero ---------- */
     .hero {
       display:grid;
       grid-template-columns: 1fr 420px;
-      gap:36px;
-      align-items:center;
+      gap:32px;
+      align-items:flex-start;
       width:100%;
       max-width:1100px;
       margin: 12px auto;
@@ -159,12 +157,43 @@
     }
     .hero p.lead {
       color:rgba(255,255,255,0.9);
-      margin:0 0 18px 0;
+      margin:0 0 12px 0;
       font-size:16px;
       max-width:640px;
     }
 
-    /* ---------- Card (form) ---------- */
+    .campus-chips {
+      margin:10px 0 18px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      align-items:center;
+      font-size:13px;
+      color:var(--muted);
+    }
+    .chip {
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.04);
+      white-space:nowrap;
+    }
+    .chip.muted {
+      background:rgba(255,255,255,.02);
+    }
+
+    .section-title {
+      color:var(--white);
+      margin:0 0 10px;
+      font-size:18px;
+    }
+
+    .section-sub {
+      margin:0 0 12px;
+      font-size:13px;
+      color:var(--muted);
+    }
+
     .card {
       background: linear-gradient(180deg,var(--navy-2), rgba(35,54,110,0.9));
       border-radius:14px;
@@ -172,6 +201,7 @@
       box-shadow: 0 18px 40px rgba(0,0,0,0.35);
       width:100%;
       color:var(--white);
+      border:1px solid rgba(255,255,255,0.06);
     }
 
     label{display:block;font-size:13px;margin-bottom:6px;color:var(--muted);font-weight:600}
@@ -196,6 +226,7 @@
       box-shadow:0 10px 30px rgba(255,183,162,0.12);
       transition: transform .14s ease, box-shadow .14s;
       position: relative; z-index: 10;
+      font-size:14px;
     }
     .submit:hover { transform: translateY(-3px); box-shadow:0 18px 40px rgba(255,158,140,0.18); }
 
@@ -207,7 +238,6 @@
       min-height:1.4em;
     }
 
-    /* ---------- Features block ---------- */
     .features {
       display:grid;
       grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
@@ -218,10 +248,113 @@
       background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
       padding:18px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);
       color:var(--muted);
+      font-size:13px;
     }
     .feature h3{ color:var(--peach); margin:0 0 8px 0; font-size:15px }
 
-    /* ---------- Footer ---------- */
+    .how {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:16px;
+      margin-top:10px;
+    }
+    .how-step {
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,0.06);
+      background:rgba(255,255,255,0.02);
+      padding:14px;
+      font-size:13px;
+      color:var(--muted);
+    }
+    .how-step span.emoji {
+      display:inline-block;
+      margin-bottom:6px;
+      font-size:18px;
+    }
+    .how-step strong {
+      color:var(--white);
+    }
+
+    .safety {
+      margin-top:20px;
+    }
+    .safety-list {
+      list-style:none;
+      padding:0;
+      margin:8px 0 0;
+      font-size:13px;
+      color:var(--muted);
+    }
+    .safety-list li {
+      margin-bottom:6px;
+      display:flex;
+      gap:8px;
+    }
+
+    .safety-badge {
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      padding:4px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.03);
+      font-size:12px;
+      color:var(--muted);
+    }
+
+    /* FAQ */
+    .faq {
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,0.06);
+      background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(255,255,255,.01));
+      box-shadow:0 16px 34px rgba(0,0,0,.32);
+      margin-top:10px;
+    }
+
+    .faq-item + .faq-item {
+      border-top:1px solid rgba(255,255,255,0.06);
+    }
+
+    .faq-q {
+      width:100%;
+      text-align:left;
+      padding:12px 16px;
+      background:transparent;
+      border:none;
+      color:var(--white);
+      font-weight:600;
+      font-size:14px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      cursor:pointer;
+    }
+
+    .faq-icon {
+      font-size:18px;
+      color:var(--muted);
+      transition:transform .18s ease;
+    }
+
+    .faq-item.open .faq-icon {
+      transform:rotate(45deg);
+    }
+
+    .faq-a {
+      max-height:0;
+      overflow:hidden;
+      padding:0 16px;
+      color:var(--muted);
+      font-size:13px;
+      transition:max-height .2s ease, padding-bottom .2s ease;
+    }
+
+    .faq-item.open .faq-a {
+      max-height:160px;
+      padding-bottom:10px;
+    }
+
     footer {
       width:100%;
       max-width:1100px;
@@ -231,7 +364,6 @@
       font-size:14px;
     }
 
-    /* ---------- Responsive ---------- */
     @media (max-width:980px){
       .hero{ grid-template-columns: 1fr; gap:22px; padding:0 10px; }
       header{ padding:14px 10px; }
@@ -241,13 +373,11 @@
       .title{ font-size:18px }
     }
 
-    /* subtle focus state */
     input:focus, select:focus, textarea:focus{
       box-shadow: 0 6px 18px rgba(35,54,110,0.25);
       border-color: rgba(255,183,162,0.18);
     }
 
-    /* --- Mobile polish (keeps your old layout) --- */
     @media (max-width: 720px) {
       body { padding: 0 14px 60px; }
       header { padding: 12px 8px; }
@@ -255,16 +385,18 @@
       .hero h1, .hero-left h1 { font-size: 28px; line-height: 1.2; }
       .lead { font-size: 15.5px; color: rgba(255,255,255,0.92); }
 
-      .features { grid-template-columns: 1fr; gap: 12px; margin-top: 12px; }
-      .feature { padding: 14px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.06);
-                 background: linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.02)); }
-      .feature h3 { font-size: 15px; margin-bottom: 6px; }
+      .features,
+      .how {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        margin-top: 12px;
+      }
 
       .card { padding: 16px; border-radius: 12px; box-shadow: 0 16px 36px rgba(0,0,0,0.32); margin-top: 16px; }
       label { font-size: 13px; margin: 8px 0 6px; }
       input, select, textarea {
         width: 100%;
-        font-size: 16px; /* prevents iOS zoom */
+        font-size: 16px;
         padding: 12px 14px;
         border-radius: 10px;
         border: 1px solid rgba(255,255,255,0.08);
@@ -283,7 +415,6 @@
       nav .ghost { display: none; }
     }
 
-    /* --- Fix: ensure primary CTAs are clickable on mobile --- */
     a.btn, button, .cta, .submit {
       position: relative;
       z-index: 10;
@@ -293,60 +424,7 @@
       z-index: 1;
       position: relative;
     }
-
-    /* FAQ */
-.faq {
-  border-radius:14px;
-  border:1px solid rgba(255,255,255,0.06);
-  background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(255,255,255,.01));
-  box-shadow:0 16px 34px rgba(0,0,0,.32);
-}
-
-.faq-item + .faq-item {
-  border-top:1px solid rgba(255,255,255,0.06);
-}
-
-.faq-q {
-  width:100%;
-  text-align:left;
-  padding:12px 16px;
-  background:transparent;
-  border:none;
-  color:var(--white);
-  font-weight:600;
-  font-size:14px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  cursor:pointer;
-}
-
-.faq-icon {
-  font-size:18px;
-  color:var(--muted);
-  transition:transform .18s ease;
-}
-
-.faq-item.open .faq-icon {
-  transform:rotate(45deg);
-}
-
-.faq-a {
-  max-height:0;
-  overflow:hidden;
-  padding:0 16px;
-  color:var(--muted);
-  font-size:13px;
-  transition:max-height .2s ease, padding-bottom .2s ease;
-}
-
-.faq-item.open .faq-a {
-  max-height:120px; /* enough for 2–3 lines */
-  padding-bottom:10px;
-}
-
   </style>
-  
 </head>
 <body>
   <div class="site">
@@ -362,24 +440,13 @@
       </div>
 
       <nav>
-        <button
-          class="ghost"
-          type="button"
-          id="featuresBtn"
-        >
-          Features
-        </button>
+        <button class="ghost" type="button" id="featuresBtn">Features</button>
 
-        <!-- Try Beta link -->
         <a class="cta beta" href="beta.html">
           Try Beta <span class="badge">NEW</span>
         </a>
 
-        <button
-          class="cta"
-          type="button"
-          id="joinWaitlistBtn"
-        >
+        <button class="cta" type="button" id="joinWaitlistBtn">
           Join Waitlist
         </button>
       </nav>
@@ -389,26 +456,20 @@
       <div class="hero-left">
         <h1 id="hero-title">Find study buddies, project partners, and maybe something more.</h1>
         <p class="lead">CampusCrush connects verified college students in your state — match by classes, schedules, and shared interests. Start small: join the waitlist and help shape the app.</p>
-        <div style="margin:10px 0 18px; display:flex; flex-wrap:wrap; gap:8px; align-items:center; font-size:13px; color:var(--muted);">
+
+        <div class="campus-chips">
           <span style="opacity:.9;">Launching first at:</span>
-          <span style="padding:6px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);">
-            Parsons
-          </span>
-          <span style="padding:6px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);">
-            NYU
-          </span>
-          <span style="padding:6px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);">
-            Columbia
-          </span>
-          <span style="padding:6px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.02);">
-            + your campus
-          </span>
+          <span class="chip">Parsons</span>
+          <span class="chip">NYU</span>
+          <span class="chip">Columbia</span>
+          <span class="chip muted">+ your campus</span>
         </div>
-        
 
         <section aria-labelledby="features-title" id="features">
-          <h2 id="features-title" style="color:var(--white);margin-bottom:14px">Upcoming features</h2>
-          <div class="features" style="margin-top:0;">
+          <h2 id="features-title" class="section-title">Upcoming features</h2>
+          <p class="section-sub">We’re starting simple: real students, verified emails, and campus-first matching.</p>
+
+          <div class="features">
             <div class="feature">
               <h3>Swipe & Match</h3>
               <p>Familiar, fast matching — optional and privacy-focused, built for campus-first connections.</p>
@@ -423,51 +484,81 @@
             </div>
           </div>
         </section>
+
+        <section id="how" aria-labelledby="how-title" style="margin-top:24px;">
+          <h2 id="how-title" class="section-title">How it works</h2>
+          <p class="section-sub">Low effort, low cringe. You can treat it as study-only or flip into dating when you’re ready.</p>
+
+          <div class="how">
+            <div class="how-step">
+              <span class="emoji">📨</span>
+              <strong>1. Join with your .edu</strong>
+              <p>Start on the waitlist. We’ll onboard campus by campus so it never feels empty or spammy.</p>
+            </div>
+            <div class="how-step">
+              <span class="emoji">📅</span>
+              <strong>2. Add your schedule & vibe</strong>
+              <p>Pick “study”, “dating”, or “group”. Add blocks when you’re free and tags like “international” or “studio kid”.</p>
+            </div>
+            <div class="how-step">
+              <span class="emoji">✨</span>
+              <strong>3. Match with real classmates</strong>
+              <p>Get matches that share a campus, state, or schedule — with Incognito options & private feedback after you meet.</p>
+            </div>
+          </div>
+
+          <div class="safety">
+            <span class="safety-badge">🛟 Safety & respect built in</span>
+            <ul class="safety-list">
+              <li><span>•</span><span>.edu email required for access — no randoms or bot farms.</span></li>
+              <li><span>•</span><span>Incognito options and initials-only until mutual interest in the beta.</span></li>
+              <li><span>•</span><span>Private post-meet feedback to quietly flag bad vibes — never public.</span></li>
+            </ul>
+          </div>
+        </section>
+
         <section id="faq" aria-labelledby="faq-title" style="margin-top:24px;">
-          <h2 id="faq-title" style="color:var(--white);margin-bottom:10px;font-size:18px;">
-            FAQ
-          </h2>
-        
+          <h2 id="faq-title" class="section-title">FAQ</h2>
+
           <div class="faq">
             <div class="faq-item">
               <button class="faq-q" type="button">
-                Is this another hookup app?
+                Is this just another hookup app?
                 <span class="faq-icon">+</span>
               </button>
               <div class="faq-a">
-                <p>No. CampusCrush is designed around classes, schedules, and safety. You can use it for study partners, collab projects, or dating — you choose the mode.</p>
+                <p>No. CampusCrush is built around classes, schedules, and safety. You can keep it strictly study / collab mode or switch into dating when you’re comfortable.</p>
               </div>
             </div>
-        
+
             <div class="faq-item">
               <button class="faq-q" type="button">
                 How do you keep it safe?
                 <span class="faq-icon">+</span>
               </button>
               <div class="faq-a">
-                <p>We require .edu emails, default to Incognito mode in the beta, and use private post-meet feedback (never public) to flag bad vibes early.</p>
+                <p>We verify via .edu email, default to Incognito in the beta, and use private post-meet feedback (never public) to quietly flag issues.</p>
               </div>
             </div>
-        
+
             <div class="faq-item">
               <button class="faq-q" type="button">
                 Is my .edu email visible to other users?
                 <span class="faq-icon">+</span>
               </button>
               <div class="faq-a">
-                <p>No. Email is only used for verification and access — matches see your name, school, and whatever you choose to share.</p>
+                <p>No. Your email is only used for verification and access. Matches see your name, school, mode, and whatever you choose to share.</p>
               </div>
             </div>
           </div>
         </section>
-        
       </div>
 
       <!-- Signup / waitlist card -->
       <aside id="signup" aria-label="Join CampusCrush waitlist">
         <div class="card" aria-labelledby="signup-title">
           <h3 id="signup-title" style="margin:0 0 12px 0;color:var(--white)">Join the waitlist</h3>
-          <p style="margin:0 0 12px 0;color:var(--muted);font-size:13px">Get early access and feature invites — we respect privacy.</p>
+          <p style="margin:0 0 12px 0;color:var(--muted);font-size:13px">Get early access and help decide what ships first. No spam, no selling your email.</p>
 
           <form id="contact-form" aria-label="CampusCrush waitlist form" novalidate>
             <label for="user_name">Name</label>
@@ -500,8 +591,10 @@
               <option>Other college</option>
             </select>
 
-            <label for="message">Message (optional)</label>
-            <textarea id="message" name="message" placeholder="Tell us why you'd like to join (optional)"></textarea>
+            <label><input type="checkbox" id="founding" name="founding"> I’d like to be a founding member (okay with early, buggy builds)</label>
+
+            <label for="message" style="margin-top:8px;">Message (optional)</label>
+            <textarea id="message" name="message" placeholder="Tell us what would make this worth using."></textarea>
 
             <button class="submit" type="submit">Join the Waitlist</button>
             <div id="status" role="status" aria-live="polite" aria-atomic="true"></div>
@@ -516,6 +609,46 @@
       </p>
     </footer>
   </div>
+
+  <!-- Update available banner -->
+  <div id="updateBanner" style="
+    position:fixed;
+    left:16px;
+    right:16px;
+    bottom:72px;
+    z-index:9998;
+    display:none;
+    padding:10px 14px;
+    border-radius:999px;
+    background:#1C2D5A;
+    border:1px solid rgba(255,255,255,.16);
+    box-shadow:0 8px 24px rgba(0,0,0,.3);
+    font-size:13px;
+    color:#fff;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+  ">
+    <span>New version of CampusCrush is available.</span>
+    <button id="updateReloadBtn" style="
+      border:none;
+      border-radius:999px;
+      padding:8px 14px;
+      font-weight:800;
+      cursor:pointer;
+      background:linear-gradient(90deg,#FFB7A2,#FF9E8C);
+      color:#1C2D5A;
+    ">
+      Refresh now
+    </button>
+  </div>
+
+  <!-- Install prompt button (only shows when eligible) -->
+  <button id="installAppBtn" style="
+    position:fixed;left:16px;right:16px;bottom:16px;z-index:9999;
+    display:none;padding:12px 16px;border:none;border-radius:999px;
+    background:#FFB7A2;color:#1C2D5A;font-weight:800;box-shadow:0 8px 24px rgba(0,0,0,.2);
+  ">Install CampusCrush</button>
 
   <!-- EmailJS -->
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
@@ -568,56 +701,51 @@
         });
     });
 
-    // Service worker registration
+    // Service worker registration with update banner
     if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js')
-      .then(reg => {
-        console.log('✅ Service Worker registered');
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+          .then(reg => {
+            console.log('✅ Service Worker registered');
 
-        const banner = document.getElementById('updateBanner');
-        const reloadBtn = document.getElementById('updateReloadBtn');
+            const banner = document.getElementById('updateBanner');
+            const reloadBtn = document.getElementById('updateReloadBtn');
 
-        function showUpdateBanner(waitingWorker) {
-          if (!banner || !reloadBtn) return;
-          banner.style.display = 'flex';
+            function showUpdateBanner(waitingWorker) {
+              if (!banner || !reloadBtn) return;
+              banner.style.display = 'flex';
 
-          reloadBtn.onclick = () => {
-            // Tell the waiting SW to activate
-            waitingWorker.postMessage({ type: 'SKIP_WAITING' });
-          };
-        }
+              reloadBtn.onclick = () => {
+                waitingWorker.postMessage({ type: 'SKIP_WAITING' });
+              };
+            }
 
-        // 1) If there's already a waiting worker (e.g. page re-opened)
-        if (reg.waiting) {
-          showUpdateBanner(reg.waiting);
-        }
-
-        // 2) Listen for new workers
-        reg.addEventListener('updatefound', () => {
-          const newWorker = reg.installing;
-          if (!newWorker) return;
-
-          newWorker.addEventListener('statechange', () => {
-            if (newWorker.state === 'installed' && reg.waiting) {
-              // New version is installed and waiting
+            // Already waiting?
+            if (reg.waiting) {
               showUpdateBanner(reg.waiting);
             }
-          });
-        });
 
-        // 3) When the new SW takes control, reload once
-        let refreshing = false;
-        navigator.serviceWorker.addEventListener('controllerchange', () => {
-          if (refreshing) return;
-          refreshing = true;
-          window.location.reload();
-        });
-      })
-      .catch(console.error);
-  });
-}
+            reg.addEventListener('updatefound', () => {
+              const newWorker = reg.installing;
+              if (!newWorker) return;
 
+              newWorker.addEventListener('statechange', () => {
+                if (newWorker.state === 'installed' && reg.waiting) {
+                  showUpdateBanner(reg.waiting);
+                }
+              });
+            });
+
+            let refreshing = false;
+            navigator.serviceWorker.addEventListener('controllerchange', () => {
+              if (refreshing) return;
+              refreshing = true;
+              window.location.reload();
+            });
+          })
+          .catch(console.error);
+      });
+    }
 
     // Custom install prompt
     let deferredPrompt = null;
@@ -644,7 +772,7 @@
       if (e.matches && installBtn) installBtn.style.display = 'none';
     });
 
-    // Smooth scroll + bounce for signup
+    // Smooth scroll + bounce
     (function(){
       const signupSection = document.getElementById('signup');
       const featuresSection = document.getElementById('features');
@@ -666,70 +794,18 @@
           featuresSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
         });
       }
+
+      // FAQ accordion
+      const items = document.querySelectorAll('.faq-item');
+      items.forEach(item=>{
+        const btn = item.querySelector('.faq-q');
+        btn.addEventListener('click', ()=>{
+          const isOpen = item.classList.contains('open');
+          items.forEach(i=>i.classList.remove('open'));
+          if(!isOpen) item.classList.add('open');
+        });
+      });
     })();
-
-    // FAQ accordion
-(function(){
-  const items = document.querySelectorAll('.faq-item');
-  items.forEach(item=>{
-    const btn = item.querySelector('.faq-q');
-    btn.addEventListener('click', ()=>{
-      const isOpen = item.classList.contains('open');
-      items.forEach(i=>i.classList.remove('open'));
-      if(!isOpen) item.classList.add('open');
-    });
-  });
-})();
-
   </script>
-
-  <!-- Install prompt button (only shows when eligible) -->
-  <button id="installAppBtn" style="
-    position:fixed;left:16px;right:16px;bottom:16px;z-index:9999;
-    display:none;padding:12px 16px;border:none;border-radius:999px;
-    background:#FFB7A2;color:#1C2D5A;font-weight:800;box-shadow:0 8px 24px rgba(0,0,0,.2);
-  ">Install CampusCrush</button>
-
-  <!-- Update available banner -->
-<div id="updateBanner" style="
-position:fixed;
-left:16px;
-right:16px;
-bottom:72px; /* sits above the install button */
-z-index:9998;
-display:none;
-padding:10px 14px;
-border-radius:999px;
-background:#1C2D5A;
-border:1px solid rgba(255,255,255,.16);
-box-shadow:0 8px 24px rgba(0,0,0,.3);
-font-size:13px;
-color:#fff;
-display:flex;
-justify-content:space-between;
-align-items:center;
-gap:10px;
-">
-<span>New version of CampusCrush is available.</span>
-<button id="updateReloadBtn" style="
-  border:none;
-  border-radius:999px;
-  padding:8px 14px;
-  font-weight:800;
-  cursor:pointer;
-  background:linear-gradient(90deg,#FFB7A2,#FF9E8C);
-  color:#1C2D5A;
-">
-  Refresh now
-</button>
-</div>
-
-<!-- Install prompt button (only shows when eligible) -->
-<button id="installAppBtn" style="
-position:fixed;left:16px;right:16px;bottom:16px;z-index:9999;
-display:none;padding:12px 16px;border:none;border-radius:999px;
-background:#FFB7A2;color:#1C2D5A;font-weight:800;box-shadow:0 8px 24px rgba(0,0,0,.2);
-">Install CampusCrush</button>
-
 </body>
 </html>
