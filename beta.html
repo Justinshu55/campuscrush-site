@@ -13,7 +13,10 @@
       --bg:linear-gradient(180deg,#1C2D5A 0%, #122043 100%);
     }
     *{box-sizing:border-box} html,body{margin:0;height:100%}
-    body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;background:var(--bg);color:#fff}
+    body{
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;
+      background:var(--bg);color:#fff;
+    }
 
     .wrap{max-width:980px;margin:0 auto;padding:16px clamp(14px,4vw,24px) 28px}
 
@@ -23,8 +26,8 @@
     .logo svg{width:20px;height:20px;fill:#fff}
     .title{font-weight:800;letter-spacing:.2px}
     .nav{display:flex;gap:10px}
-    .ghost{background:transparent;border:1px solid rgba(255,255,255,.08);color:var(--muted);padding:8px 12px;border-radius:999px}
-    .cta{background:linear-gradient(90deg,var(--peach),var(--peach-2));color:#1C2D5A;border:none;padding:9px 14px;border-radius:999px;font-weight:800}
+    .ghost{background:transparent;border:1px solid rgba(255,255,255,.08);color:var(--muted);padding:8px 12px;border-radius:999px;text-decoration:none;font-size:13px}
+    .cta{background:linear-gradient(90deg,var(--peach),var(--peach-2));color:#1C2D5A;border:none;padding:9px 14px;border-radius:999px;font-weight:800;text-decoration:none;font-size:14px}
 
     h1{font-size:26px;margin:10px 0 8px}
     p.lead{color:rgba(255,255,255,.92);margin:0 0 18px}
@@ -32,22 +35,48 @@
     .grid{display:grid;grid-template-columns:1fr;gap:16px}
     @media(min-width:900px){ .grid{grid-template-columns:1.05fr .95fr} }
 
-    .card{background:linear-gradient(180deg,var(--navy-2),rgba(35,54,110,.9));border:1px solid rgba(255,255,255,.06);
-          border-radius:14px;padding:16px;box-shadow:0 18px 40px rgba(0,0,0,.35)}
+    .card{
+      background:linear-gradient(180deg,var(--navy-2),rgba(35,54,110,.9));
+      border:1px solid rgba(255,255,255,.06);
+      border-radius:14px;padding:16px;
+      box-shadow:0 18px 40px rgba(0,0,0,.35)
+    }
     .card h3{margin:4px 0 8px}
     label{display:block;font-size:13px;color:var(--muted);margin:10px 0 6px;font-weight:600}
-    input,select,textarea{width:100%;padding:12px 14px;border-radius:10px;border:1px solid rgba(255,255,255,.08);
-                          background:rgba(255,255,255,.04);color:#fff;font-size:15px}
+    input,select,textarea{
+      width:100%;padding:12px 14px;border-radius:10px;
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(255,255,255,.04);color:#fff;font-size:15px
+    }
+    input::placeholder,textarea::placeholder{color:rgba(255,255,255,.6)}
+    textarea{resize:vertical;min-height:80px}
     .row{display:flex;gap:10px;flex-wrap:wrap}
     .switch{display:flex;align-items:center;gap:10px;padding:10px;border:1px solid rgba(255,255,255,.08);
-            border-radius:12px;background:rgba(255,255,255,.03)}
+            border-radius:12px;background:rgba(255,255,255,.03);flex:1 1 160px}
     .switch input{width:auto}
-    .pill{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.08);cursor:pointer}
-    .pill.active{background:linear-gradient(90deg,var(--peach),var(--peach-2));color:#1C2D5A;border-color:transparent;font-weight:800}
+    .pill{
+      display:inline-flex;align-items:center;gap:8px;padding:8px 12px;
+      border-radius:999px;border:1px solid rgba(255,255,255,.08);cursor:pointer;
+      background:transparent;font-size:13px
+    }
+    .pill.active{
+      background:linear-gradient(90deg,var(--peach),var(--peach-2));
+      color:#1C2D5A;border-color:transparent;font-weight:800
+    }
+
+    /* smaller pills for interests */
+    #interests .pill{
+      font-size:12px;
+      padding:6px 10px;
+    }
 
     /* profile preview */
     .profile{display:flex;gap:12px}
-    .avatar{width:72px;height:72px;border-radius:12px;background:#d9d9d9 url('https://images.unsplash.com/photo-1527980965255-d3b416303d12?q=80&w=400&auto=format&fit=crop') center/cover no-repeat;box-shadow:0 6px 18px rgba(0,0,0,.35)}
+    .avatar{
+      width:72px;height:72px;border-radius:12px;
+      background:#d9d9d9 url('https://images.unsplash.com/photo-1527980965255-d3b416303d12?q=80&w=400&auto=format&fit=crop') center/cover no-repeat;
+      box-shadow:0 6px 18px rgba(0,0,0,.35)
+    }
     .blur .avatar{filter: blur(8px)}
     .fields{flex:1}
     .name{font-weight:800;font-size:18px}
@@ -57,33 +86,94 @@
 
     /* schedule */
     .sched{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
-    .block{padding:10px;border-radius:10px;text-align:center;border:1px solid rgba(255,255,255,.08);cursor:pointer;background:rgba(255,255,255,.03)}
-    .block.active{background:linear-gradient(90deg,var(--peach),var(--peach-2));color:#1C2D5A;font-weight:800;border-color:transparent}
+    .block{
+      padding:10px;border-radius:10px;text-align:center;
+      border:1px solid rgba(255,255,255,.08);cursor:pointer;
+      background:rgba(255,255,255,.03);font-size:13px
+    }
+    .block.active{
+      background:linear-gradient(90deg,var(--peach),var(--peach-2));
+      color:#1C2D5A;font-weight:800;border-color:transparent
+    }
 
     /* matches */
     .matches{display:grid;grid-template-columns:1fr 1fr;gap:12px}
     @media(max-width:640px){ .matches{grid-template-columns:1fr} }
-    .card-match{border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.02)}
+    .card-match{border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.02);position:relative}
     .photo{height:210px;background:#ccc url('https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=600&auto=format&fit=crop') center/cover no-repeat}
     .blur .photo{filter: blur(10px)}
     .content{padding:12px}
     .btns{display:flex;gap:8px}
-    .btn{flex:1;border:none;border-radius:10px;padding:10px;font-weight:800;cursor:pointer}
+    .btn{flex:1;border:none;border-radius:10px;padding:10px;font-weight:800;cursor:pointer;font-size:13px}
     .like{background:linear-gradient(90deg,var(--peach),var(--peach-2));color:#1C2D5A}
     .pass{background:transparent;border:1px solid rgba(255,255,255,.15);color:#fff}
     .reveal{display:none}
 
-    .save{width:100%;margin-top:10px;border:none;border-radius:999px;padding:12px;background:linear-gradient(90deg,var(--peach),var(--peach-2));color:#1C2D5A;font-weight:900}
+    .save{width:100%;margin-top:10px;border:none;border-radius:999px;padding:12px;background:linear-gradient(90deg,var(--peach),var(--peach-2));color:#1C2D5A;font-weight:900;cursor:pointer}
     .note{color:var(--muted);font-size:13px;margin-top:6px}
 
+    /* metrics bar */
+    .metrics{
+      display:flex;
+      justify-content:flex-end;
+      align-items:center;
+      gap:8px;
+      margin-bottom:4px;
+      font-size:12px;
+      color:var(--muted);
+    }
+    .badge{
+      padding:4px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.03);
+      font-size:12px;
+    }
+
     /* modal */
-    .modal{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;align-items:center;justify-content:center;padding:16px;z-index:50}
+    .modal{
+      position:fixed;inset:0;background:rgba(0,0,0,.45);
+      display:none;align-items:center;justify-content:center;
+      padding:16px;z-index:50
+    }
     .modal.active{display:flex}
-    .modal .box{background:#fff;color:#222;border-radius:16px;max-width:440px;width:100%;padding:18px}
+    .modal .box{
+      background:#fff;color:#222;border-radius:16px;
+      max-width:440px;width:100%;padding:18px
+    }
     .box h4{margin:0 0 8px}
-    .box .row{margin-top:8px}
-    .box .row label{color:#444}
+    .box .row{margin-top:8px;flex-wrap:wrap}
+    .box .row label{color:#444;margin:4px 0}
     .box .submit{margin-top:12px}
+    #fb_status{margin-top:6px;color:#666;font-weight:700;min-height:1.2em;font-size:13px}
+
+    .vibe-row{
+      margin-top:10px;
+    }
+    .vibe-row span.label{
+      font-size:13px;
+      color:#555;
+      display:inline-block;
+      margin-bottom:4px;
+    }
+    .vibe-scale{
+      display:flex;
+      align-items:center;
+      gap:6px;
+    }
+    .vibe-scale input[type="range"]{
+      flex:1;
+    }
+    .vibe-hint{
+      font-size:12px;
+      color:#777;
+      min-width:80px;
+      text-align:right;
+    }
+
+    @media(max-width:600px){
+      h1{font-size:22px}
+    }
   </style>
 </head>
 <body>
@@ -101,7 +191,7 @@
     </header>
 
     <h1>Privacy-first matching demo</h1>
-    <p class="lead">Incognito by default. Cross-campus visibility. Study/Dating modes. A light schedule to improve matches.</p>
+    <p class="lead">Incognito by default. Cross-campus visibility. Study/Dating modes. A light schedule and vibes to improve matches.</p>
 
     <div class="grid">
       <!-- LEFT: Settings -->
@@ -116,6 +206,7 @@
               <span class="abbr">A. C.</span>
             </div>
             <div class="note" id="modeNote">Mode: Dating</div>
+            <div class="note" id="interestPreview">Your tags: add a few so matches feel less random.</div>
           </div>
         </div>
 
@@ -145,27 +236,23 @@
         </select>
 
         <label>Mode</label>
-        <div class="row" id="modes">
-          <button class="pill active" data-mode="dating">Dating</button>
-          <button class="pill" data-mode="study">Study</button>
-          <button class="pill" data-mode="group">Group / Double Date</button>
+        <div class="row" id="modes" role="group" aria-label="Interaction mode">
+          <button type="button" class="pill active" data-mode="dating" aria-pressed="true">Dating</button>
+          <button type="button" class="pill" data-mode="study" aria-pressed="false">Study</button>
+          <button type="button" class="pill" data-mode="group" aria-pressed="false">Group / Double Date</button>
         </div>
+
         <label style="margin-top:12px;">Interests / vibes (pick a few)</label>
-<div class="row" id="interests" aria-label="Interest tags">
-  <button type="button" class="pill" data-interest="International">International student</button>
-  <button type="button" class="pill" data-interest="Art/Design">Art / design kid</button>
-  <button type="button" class="pill" data-interest="CS/Tech">CS / tech</button>
-  <button type="button" class="pill" data-interest="Business/Finance">Business / finance</button>
-  <button type="button" class="pill" data-interest="Night owl">Night owl</button>
-  <button type="button" class="pill" data-interest="Early bird">Morning person</button>
-  <button type="button" class="pill" data-interest="NYC foodie">NYC foodie</button>
-  <button type="button" class="pill" data-interest="Chill hangs">Chill hangs</button>
-</div>
-
-<div class="note" id="interestPreview">
-  Your tags: International student, Art / design kid
-</div>
-
+        <div class="row" id="interests" aria-label="Interest tags">
+          <button type="button" class="pill" data-interest="International">International student</button>
+          <button type="button" class="pill" data-interest="Art/Design">Art / design kid</button>
+          <button type="button" class="pill" data-interest="CS/Tech">CS / tech</button>
+          <button type="button" class="pill" data-interest="Business/Finance">Business / finance</button>
+          <button type="button" class="pill" data-interest="Night owl">Night owl</button>
+          <button type="button" class="pill" data-interest="Early bird">Morning person</button>
+          <button type="button" class="pill" data-interest="NYC foodie">NYC foodie</button>
+          <button type="button" class="pill" data-interest="Chill hangs">Chill hangs</button>
+        </div>
 
         <h3 style="margin-top:14px">Schedule (helps smarter matches)</h3>
         <div class="row" style="margin-bottom:6px">
@@ -200,16 +287,19 @@
 
       <!-- RIGHT: Matches demo -->
       <section class="card">
+        <div class="metrics">
+          <span class="badge" id="likesMetric">Likes sent: 0</span>
+        </div>
         <h3>Demo matches</h3>
-        <p class="note">When Incognito is on, photos blur and names show initials until mutual like.</p>
+        <p class="note">When Incognito is on, photos blur and names show initials until mutual like. This demo simulates the flow — no real profiles yet.</p>
 
         <div class="matches" id="matches">
           <!-- example card -->
-          <div class="card-match blur" data-id="m1">
+          <div class="card-match blur" data-id="m1" data-name="Sam R.">
             <div class="photo"></div>
             <div class="content">
               <div class="name" style="font-weight:800">Sam R.</div>
-              <div class="note">NYU · Evening free Tue/Thu</div>
+              <div class="note">NYU · Evening free Tue/Thu · Night owl</div>
               <div class="btns" style="margin-top:10px">
                 <button class="btn pass">Pass</button>
                 <button class="btn like">Like</button>
@@ -219,11 +309,11 @@
             </div>
           </div>
 
-          <div class="card-match blur" data-id="m2">
+          <div class="card-match blur" data-id="m2" data-name="J. Lee">
             <div class="photo" style="background-image:url('https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=600&auto=format&fit=crop')"></div>
             <div class="content">
               <div class="name" style="font-weight:800">J. Lee</div>
-              <div class="note">Parsons · Afternoon free M/W</div>
+              <div class="note">Parsons · Afternoon free M/W · Art / design kid</div>
               <div class="btns" style="margin-top:10px">
                 <button class="btn pass">Pass</button>
                 <button class="btn like">Like</button>
@@ -234,7 +324,7 @@
           </div>
         </div>
 
-        <div class="note" style="margin-top:10px">This is a prototype — in production, “Reveal” happens only on mutual likes.</div>
+        <div class="note" style="margin-top:10px">In production, “Reveal” would only appear after a mutual like — and your feedback would quietly help keep the community safe.</div>
       </section>
     </div>
   </div>
@@ -243,22 +333,31 @@
   <div class="modal" id="feedbackModal" aria-hidden="true">
     <div class="box">
       <h4>Private feedback (never public)</h4>
-      <p style="margin:0;color:#555">Helps keep the community safe & respectful.</p>
+      <p style="margin:0;color:#555;font-size:13px">Used only to keep the community safe and improve matching — the other person never sees this.</p>
 
       <div class="row">
-        <label><input type="checkbox" id="fb_safe"> I felt safe</label>
+        <label><input type="checkbox" id="fb_safe"> I felt safe / comfortable</label>
         <label><input type="checkbox" id="fb_respect"> They were respectful</label>
-        <label><input type="checkbox" id="fb_again"> I’d meet again</label>
+        <label><input type="checkbox" id="fb_again"> I’d be happy to meet again</label>
+        <label><input type="checkbox" id="fb_on_time"> They showed up / didn’t flake</label>
       </div>
 
-      <label for="fb_notes" style="margin-top:8px">Notes (optional)</label>
-      <textarea id="fb_notes" placeholder="Anything we should know?" style="color:#222;background:#f7f7f7"></textarea>
+      <div class="vibe-row">
+        <span class="label">Overall vibe</span>
+        <div class="vibe-scale">
+          <input id="fb_vibe" type="range" min="1" max="5" step="1" value="3">
+          <div class="vibe-hint" id="fb_vibe_hint">3 · neutral</div>
+        </div>
+      </div>
+
+      <label for="fb_notes" style="margin-top:8px">Notes (optional, private)</label>
+      <textarea id="fb_notes" placeholder="Anything we should know? e.g. good communicator, felt off, great match" style="color:#222;background:#f7f7f7"></textarea>
 
       <label for="fb_email" style="margin-top:8px">Your .edu email (optional, for follow-up)</label>
       <input id="fb_email" placeholder="you@college.edu" style="color:#222;background:#f7f7f7"/>
 
       <button class="save submit" id="fb_send">Send feedback</button>
-      <div id="fb_status" style="margin-top:6px;color:#666;font-weight:700"></div>
+      <div id="fb_status"></div>
     </div>
   </div>
 
@@ -267,28 +366,29 @@
   <script>
     // ----- STATE -----
     const state = {
-  incognito: true,
-  crosscampus: false,
-  name: 'Alex Chen',
-  mode: 'dating',
-  schedule: new Set(), // e.g., "Mon-Morning"
-  interests: new Set(), // e.g., "International", "Night owl"
-};
-
+      incognito: true,
+      crosscampus: false,
+      name: 'Alex Chen',
+      mode: 'dating',
+      schedule: new Set(), // e.g., "Mon-Morning"
+      interests: new Set(), // e.g., "International"
+      likesSent: 0,
+    };
 
     // restore from localStorage
     (function restore(){
       try{
         const saved = JSON.parse(localStorage.getItem('ccrush-beta')||'{}');
-        function persist(){
-  localStorage.setItem('ccrush-beta', JSON.stringify({
-    ...state,
-    schedule: Array.from(state.schedule),
-    interests: Array.from(state.interests),
-  }));
-}
-
-      }catch{}
+        if (saved && typeof saved === 'object') {
+          state.incognito = saved.incognito ?? state.incognito;
+          state.crosscampus = saved.crosscampus ?? state.crosscampus;
+          state.name = saved.name || state.name;
+          state.mode = saved.mode || state.mode;
+          state.likesSent = typeof saved.likesSent === 'number' ? saved.likesSent : 0;
+          state.schedule = new Set(saved.schedule || []);
+          state.interests = new Set(saved.interests || []);
+        }
+      }catch(e){}
     })();
 
     // elements
@@ -301,6 +401,9 @@
     const modeNote = document.getElementById('modeNote');
     const sched = document.getElementById('sched');
     const saveBtn = document.getElementById('save');
+    const interestsEl = document.getElementById('interests');
+    const interestPreview = document.getElementById('interestPreview');
+    const likesMetric = document.getElementById('likesMetric');
 
     // apply UI from state
     function applyUI(){
@@ -315,40 +418,89 @@
 
       modeNote.textContent = 'Mode: ' + (state.mode === 'study' ? 'Study' : state.mode === 'group' ? 'Group' : 'Dating');
 
-      // sched blocks
+      // schedule blocks
       Array.from(sched.querySelectorAll('.block')).forEach(b=>{
         const key = b.dataset.slot;
         b.classList.toggle('active', state.schedule.has(key));
       });
 
-      // matches blur toggle
+      // day pills (all on/off)
+      document.querySelectorAll('[data-day]').forEach(pill=>{
+        const day = pill.dataset.day;
+        const blocks = Array.from(sched.querySelectorAll('.block'))
+          .filter(b=>b.dataset.slot.startsWith(day + '-'));
+        const allOn = blocks.length && blocks.every(b=>state.schedule.has(b.dataset.slot));
+        pill.classList.toggle('active', allOn);
+      });
+
+      // matches blur toggle + names
       document.querySelectorAll('.card-match').forEach(card=>{
         card.classList.toggle('blur', state.incognito);
         const nameEl = card.querySelector('.name');
         if(nameEl){
-          const text = nameEl.textContent.trim();
-          const initials = getInitials(text);
-          // show initials if incognito
+          const fullName = card.dataset.name || nameEl.dataset.full || nameEl.textContent.trim();
+          nameEl.dataset.full = fullName;
+          const initials = getInitials(fullName);
           if(state.incognito){
-            nameEl.dataset.full = text;
             nameEl.textContent = initials;
           }else{
-            nameEl.textContent = nameEl.dataset.full || text;
+            nameEl.textContent = fullName;
           }
         }
       });
 
-      // pills active
-      modes.querySelectorAll('.pill').forEach(p=>p.classList.toggle('active', p.dataset.mode===state.mode));
+      // mode pills aria
+      modes.querySelectorAll('.pill').forEach(p=>{
+        const active = p.dataset.mode === state.mode;
+        p.classList.toggle('active', active);
+        p.setAttribute('aria-pressed', active ? 'true' : 'false');
+      });
+
+      // interest pills state
+      if (interestsEl) {
+        interestsEl.querySelectorAll('.pill').forEach(p=>{
+          const key = p.dataset.interest;
+          const active = key && state.interests.has(key);
+          p.classList.toggle('active', !!active);
+        });
+      }
+
+      // interest preview text
+      if (interestPreview) {
+        if (!state.interests || state.interests.size === 0) {
+          interestPreview.textContent = 'Your tags: add a few so matches feel less random.';
+        } else {
+          interestPreview.textContent = 'Your tags: ' + Array.from(state.interests).join(', ');
+        }
+      }
+
+      // likes metric
+      if (likesMetric) {
+        likesMetric.textContent = `Likes sent: ${state.likesSent || 0}`;
+      }
     }
 
     function getInitials(name){
       return name.split(/\s+/).filter(Boolean).map(s=>s[0].toUpperCase()+'.').join(' ').slice(0,5);
     }
 
+    function persist(){
+      localStorage.setItem('ccrush-beta', JSON.stringify({
+        ...state,
+        schedule: Array.from(state.schedule),
+        interests: Array.from(state.interests),
+      }));
+    }
+
     // wire inputs
-    incognitoEl.addEventListener('change', ()=>{ state.incognito = incognitoEl.checked; applyUI(); persist(); });
-    crossEl.addEventListener('change', ()=>{ state.crosscampus = crossEl.checked; persist(); });
+    incognitoEl.addEventListener('change', ()=>{
+      state.incognito = incognitoEl.checked;
+      applyUI(); persist();
+    });
+    crossEl.addEventListener('change', ()=>{
+      state.crosscampus = crossEl.checked;
+      persist();
+    });
 
     fullEl.addEventListener('input', ()=>{
       state.name = fullEl.value || 'You';
@@ -356,10 +508,27 @@
     });
 
     modes.addEventListener('click', (e)=>{
-      if(e.target.closest('.pill')){
-        const m = e.target.closest('.pill').dataset.mode;
-        state.mode = m; applyUI(); persist();
-      }
+      const pill = e.target.closest('.pill');
+      if(!pill) return;
+      const m = pill.dataset.mode;
+      if(!m) return;
+      state.mode = m; applyUI(); persist();
+    });
+
+    // day pill: toggle all blocks of that day
+    document.querySelectorAll('[data-day]').forEach(pill=>{
+      pill.addEventListener('click', ()=>{
+        const day = pill.dataset.day;
+        const blocks = Array.from(sched.querySelectorAll('.block'))
+          .filter(b=>b.dataset.slot.startsWith(day + '-'));
+        const allOn = blocks.length && blocks.every(b=>state.schedule.has(b.dataset.slot));
+        if(allOn){
+          blocks.forEach(b=>state.schedule.delete(b.dataset.slot));
+        }else{
+          blocks.forEach(b=>state.schedule.add(b.dataset.slot));
+        }
+        applyUI(); persist();
+      });
     });
 
     sched.addEventListener('click', (e)=>{
@@ -369,11 +538,25 @@
       applyUI(); persist();
     });
 
-    function persist(){
-      localStorage.setItem('ccrush-beta', JSON.stringify({...state, schedule: Array.from(state.schedule),interests: Array.from(state.interests)}));
+    // interests
+    if (interestsEl) {
+      interestsEl.addEventListener('click', (e)=>{
+        const pill = e.target.closest('.pill');
+        if(!pill) return;
+        const key = pill.dataset.interest;
+        if(!key) return;
+
+        if(state.interests.has(key)) {
+          state.interests.delete(key);
+        } else {
+          state.interests.add(key);
+        }
+        applyUI();
+        persist();
+      });
     }
 
-    // Save button (noop except feedback)
+    // Save button (visual only)
     saveBtn.addEventListener('click', ()=>{
       applyUI();
       saveBtn.textContent = 'Saved ✓';
@@ -384,10 +567,17 @@
     document.getElementById('matches').addEventListener('click', (e)=>{
       const card = e.target.closest('.card-match');
       if(!card) return;
+
       if(e.target.classList.contains('pass')){
-        card.style.opacity = .4; return;
+        card.style.opacity = .4;
+        return;
       }
       if(e.target.classList.contains('like')){
+        // increment likes
+        state.likesSent = (state.likesSent || 0) + 1;
+        persist();
+        applyUI();
+
         // simulate 50% mutual
         const mutual = Math.random() > .5;
         if(mutual){
@@ -412,43 +602,82 @@
     });
 
     // EmailJS for feedback (optional)
-    emailjs.init("ulL6vwPV1VYplg_8l");
+    try{
+      emailjs.init("ulL6vwPV1VYplg_8l");
+    }catch(e){
+      console.error('EmailJS init failed', e);
+    }
 
     // feedback modal
     const modal = document.getElementById('feedbackModal');
     const fbSend = document.getElementById('fb_send');
     const fbStatus = document.getElementById('fb_status');
+    const fbVibe = document.getElementById('fb_vibe');
+    const fbVibeHint = document.getElementById('fb_vibe_hint');
+
+    function vibeLabel(val){
+      const v = Number(val);
+      if (v <= 1) return '1 · 🚩 off vibes';
+      if (v === 2) return '2 · not great';
+      if (v === 3) return '3 · neutral';
+      if (v === 4) return '4 · good';
+      return '5 · great vibes';
+    }
+    fbVibeHint.textContent = vibeLabel(fbVibe.value);
+    fbVibe.addEventListener('input', ()=>{
+      fbVibeHint.textContent = vibeLabel(fbVibe.value);
+    });
 
     function openFeedback(){
       modal.classList.add('active');
+      modal.setAttribute('aria-hidden','false');
     }
+    function closeFeedback(){
+      modal.classList.remove('active');
+      modal.setAttribute('aria-hidden','true');
+    }
+
     modal.addEventListener('click', (e)=>{
-      if(e.target === modal) modal.classList.remove('active');
+      if(e.target === modal) closeFeedback();
     });
 
     fbSend.addEventListener('click', ()=>{
       const safe = document.getElementById('fb_safe').checked ? 'Yes' : 'No';
       const resp = document.getElementById('fb_respect').checked ? 'Yes' : 'No';
       const again = document.getElementById('fb_again').checked ? 'Yes' : 'No';
+      const onTime = document.getElementById('fb_on_time').checked ? 'Yes' : 'No';
+      const vibeScore = fbVibe.value;
       const notes = document.getElementById('fb_notes').value.trim();
       const email = (document.getElementById('fb_email').value.trim() || 'beta@campuscrush.app');
 
       fbStatus.textContent = 'Sending...';
 
-      // Send via your existing template fields
       emailjs.send('campuscrush_service','template_campuscrush', {
         from_name: state.name || 'Beta User',
         from_email: email,
-        message: `[PRIVATE FEEDBACK]\nSafe: ${safe}\nRespectful: ${resp}\nMeet again: ${again}\nNotes: ${notes}`
+        message: `[PRIVATE FEEDBACK]
+Safe: ${safe}
+Respectful: ${resp}
+Meet again: ${again}
+On time: ${onTime}
+Vibe score: ${vibeScore}
+Notes: ${notes}`
       })
       .then(()=>{
         fbStatus.textContent = 'Thanks — received ✅';
-        setTimeout(()=>{ modal.classList.remove('active'); fbStatus.textContent=''; }, 1000);
+        setTimeout(()=>{
+          fbStatus.textContent='';
+          closeFeedback();
+        }, 1000);
         // clear checks
         document.getElementById('fb_safe').checked = false;
         document.getElementById('fb_respect').checked = false;
         document.getElementById('fb_again').checked = false;
+        document.getElementById('fb_on_time').checked = false;
         document.getElementById('fb_notes').value = '';
+        document.getElementById('fb_email').value = '';
+        fbVibe.value = 3;
+        fbVibeHint.textContent = vibeLabel(3);
       })
       .catch(()=>{
         fbStatus.textContent = 'Could not send. Try later.';
